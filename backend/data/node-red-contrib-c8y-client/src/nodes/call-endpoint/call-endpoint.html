@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    RED.nodes.registerType('call-endpoint',{
+        category: 'Cumulocity',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            method: {value:"GET"},
+            endpoint: {value: ''}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"call-endpoint";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="call-endpoint">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-endpoint"><i class="fa fa-tag"></i> Endpoint</label>
+        <input type="text" id="node-input-endpoint" placeholder="e.g. /service/where-am-i/findMe">
+    </div>
+    <div class="form-row">
+        <label for="node-input-method"><i class="fa fa-tag"></i> Method</label>
+        <input type="text" id="node-input-method" placeholder="e.g. GET">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="call-endpoint">
+    <p>A node that calls a specified Cumulocity endpoint.</p>
+</script>

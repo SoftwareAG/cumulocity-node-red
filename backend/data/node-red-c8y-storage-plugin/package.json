@@ -1,0 +1,19 @@
+{
+  "name": "node-red-c8y-storage-plugin",
+  "version": "0.0.1",
+  "description": "Node Red c8y Storage Plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodered",
+    "c8y"
+  ],
+  "author": "Tristan Bastian",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@c8y/client": "^1006.6.24",
+    "when": "^3.7.3"
+  }
+}
