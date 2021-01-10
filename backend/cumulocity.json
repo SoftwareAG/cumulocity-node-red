@@ -17,5 +17,23 @@
     "roles": [
         "ROLE_NODE_RED_ADMIN",
         "ROLE_NODE_RED_READ"
-    ]
+    ],
+    "livenessProbe": {
+        "httpGet": {
+            "path": "/health",
+            "port": 80
+    
+        },
+        "initialDelaySeconds": 60,
+        "periodSeconds": 10
+    },
+    "readinessProbe": {
+        "httpGet": {
+            "path": "/health",
+            "port": 80
+    
+        },
+        "initialDelaySeconds": 60,
+        "periodSeconds": 10
+    }
 }

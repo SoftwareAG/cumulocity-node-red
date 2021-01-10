@@ -16,6 +16,12 @@ module.exports = {
     autoInstallModules: true,
     httpAdminMiddleware: async function(req, res, next) {
         try {
+            // health endpoint for c8y
+            if (req.url === '/health' && req.method === 'GET') {
+                res.status(200).json({status: 'UP'}).send();
+                return;
+            }
+
             // for local development
             if (process.env.SKIP_ACCESS_CHECK) {
                 next();
