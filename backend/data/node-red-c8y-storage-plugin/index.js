@@ -13,7 +13,8 @@ var storageModule = {
             settings.storageModuleOptions.c8yUrl == null || 
             settings.storageModuleOptions.tenant == null || 
             settings.storageModuleOptions.user == null || 
-            settings.storageModuleOptions.password == null) {
+            settings.storageModuleOptions.password == null ||
+            settings.storageModuleOptions.applicationId == null) {
             throw new Error("c8y storage module's required parameters are not defined");
         }        
 
@@ -24,7 +25,7 @@ var storageModule = {
             }
         }
                 
-        c8yHandler = new C8yHandler(settings.storageModuleOptions.c8yUrl, settings.storageModuleOptions.tenant, settings.storageModuleOptions.user, settings.storageModuleOptions.password);
+        c8yHandler = new C8yHandler(settings.storageModuleOptions.c8yUrl, settings.storageModuleOptions.tenant, settings.storageModuleOptions.user, settings.storageModuleOptions.password, settings.storageModuleOptions.applicationId);
         return c8yHandler.connect();
     },
 
@@ -37,11 +38,11 @@ var storageModule = {
     },
 
     getCredentials: function() {
-        return c8yHandler.getAsOne(this.collectionNames.credentials);
+        return c8yHandler.getFromTenantOptions(this.collectionNames.credentials, true);
     },
 
     saveCredentials: function(credentials) {
-        return c8yHandler.saveAsOne(this.collectionNames.credentials, credentials);
+        return c8yHandler.saveInTenantOptions(this.collectionNames.credentials, credentials, true);
     },
 
     getSettings: function() {

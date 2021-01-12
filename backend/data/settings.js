@@ -9,9 +9,10 @@ module.exports = {
     storageModule : require("node-red-c8y-storage-plugin"),
     storageModuleOptions: {
         c8yUrl: process.env.C8Y_BASEURL,
-        tenant: process.env.C8Y_TENANT,
-        user: process.env.C8Y_USER,
-        password: process.env.C8Y_PASSWORD
+        tenant: process.env.C8Y_BOOTSTRAP_TENANT,
+        user: process.env.C8Y_BOOTSTRAP_USER,
+        password: process.env.C8Y_BOOTSTRAP_PASSWORD,
+        applicationId: process.env.APPLICATION_KEY
     },
     autoInstallModules: true,
     httpAdminMiddleware: async function(req, res, next) {

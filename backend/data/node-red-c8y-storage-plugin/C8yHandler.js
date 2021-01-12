@@ -5,22 +5,37 @@ const c8yClient = c8yClientLib.Client;
 const constants = require("./constants");
 
 let C8yHandler = class C8yHandler {
-  constructor(url, tenant, user, password) {
+  constructor(url, tenant, user, password, applicationId) {
     this.url = url;
     this.client = null;
     this.tenant = tenant;
     this.user = user;
     this.password = password;
+    this.applicationId = applicationId;
   }
 
-  connect() {
-    return c8yClient.authenticate({tenant: this.tenant, user: this.user, password: this.password}, this.url).then(client => {
+  async connect() {
+    const credentials = await this.getMicroserviceSubscriptions({tenant: this.tenant, user: this.user, password: this.password}, this.url);
+    return c8yClient.authenticate(credentials[0], this.url).then(client => {
       if (process.env.APPLICATION_KEY) {
-        const header = {'X-Cumulocity-Application-Key': process.env.APPLICATION_KEY};
+        const header = {'X-Cumulocity-Application-Key': this.applicationId};
         client.core.defaultHeaders = Object.assign(header, client.core.defaultHeaders);
       }
       this.client = client;
     });
+  }
+
+  async getMicroserviceSubscriptions(bootstrapCredentials, baseUrl) {
+    const clientCore = new c8yClientLib.FetchClient(new c8yClientLib.BasicAuth(bootstrapCredentials), baseUrl);
+    const res = await clientCore.fetch('/application/currentApplication/subscriptions');
+    const {users} = await res.json();
+    return users && users instanceof Array ? users.map(({tenant, name, password}) => {
+      return {
+        tenant,
+        user: name,
+        password
+      };
+    }) : [];
   }
 
   findAllMo(collectionName) {
@@ -96,6 +111,53 @@ let C8yHandler = class C8yHandler {
             resolve({});
           }
         });        
+      } catch (ex) {
+        reject(ex);
+      }
+    });
+  }
+
+  getFromTenantOptions(collectionName, encrypted = true) {
+    return Promise(async (resolve, reject) => {
+      try {
+        const data = await this.client.options.tenant.detail({
+          category: this.applicationId,
+          key: `${encrypted ? 'credentials.' : '' }` + collectionName
+        }).then(res => {
+          return res.data.value ? JSON.parse(res.data.value) : {};
+        }, error => {
+          return {};
+        });
+        resolve(data);        
+      } catch (ex) {
+        reject(ex);
+      }
+    });
+  }
+
+  saveInTenantOptions(collectionName, object, encrypted = true) {
+    return Promise(async (resolve, reject) => {
+      try {
+        const stored = await this.client.options.tenant.detail({
+          category: this.applicationId,
+          key: `${encrypted ? 'credentials.' : '' }` + collectionName
+        }).then(res => res.data, err => null);
+
+        if (!stored) {
+          const data = await this.client.options.tenant.create({
+            category: this.applicationId,
+            key: `${encrypted ? 'credentials.' : '' }` + collectionName,
+            value: JSON.stringify(object)
+          });
+        } else {
+          const data = await this.client.options.tenant.update({
+            category: this.applicationId,
+            key: `${encrypted ? 'credentials.' : '' }` + collectionName,
+            value: JSON.stringify(object)
+          });
+        }
+        
+        resolve();
       } catch (ex) {
         reject(ex);
       }
