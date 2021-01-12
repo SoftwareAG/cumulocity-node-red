@@ -1,4 +1,4 @@
-FROM nodered/node-red:latest-minimal
+FROM nodered/node-red:1.2.7-12-minimal
 RUN cd /data && npm install @c8y/client
 COPY ./data /data
 RUN cd /data && npm install ./node-red-contrib-c8y-client
