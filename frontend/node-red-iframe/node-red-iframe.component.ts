@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { AlertService, AppStateService } from '@c8y/ngx-components';
-import { FetchClient, UserService } from '@c8y/ngx-components/api';
+import { FetchClient, UserService } from '@c8y/client';
 import { Subscription } from 'rxjs';
 
 @Component({
