@@ -48,8 +48,8 @@ export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
     const options = this.client.getFetchOptions();
     if (options && options.headers) {
       const headers: {[key: string]: string} = options.headers
-      if (headers['Authorization'] || headers['authorization']) {
-        const authString = headers['Authorization'] || headers['authorization'];
+      const authString = headers['Authorization'] || headers['authorization'];
+      if (authString) {
         if (authString.startsWith('Basic ')) {
           const base64 = authString.replace('Basic ', '');
           const decoded = atob(base64);
@@ -58,8 +58,8 @@ export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
           const password = decoded.substring(userSeparatorIndex + 1);
           // pre-authenticate iframe in case of basic auth
           const req = new XMLHttpRequest();
-          req.open("GET", iframeURL, false, user, password);
-          req.send(null);
+          req.open('GET', iframeURL, false, user, password);
+          req.send();
         }
       }
     }
