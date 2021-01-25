@@ -3,7 +3,9 @@
     "apiVersion": "1",
     "version": "1.0.0-SNAPSHOT",
     "provider": {
-        "name": "Tristan Bastian"
+        "name": "Tristan Bastian",
+        "domain": "https://github.com/SoftwareAG/cumulocity-node-red",
+        "support": "https://github.com/SoftwareAG/cumulocity-node-red/issues"
     },
     "isolation": "PER_TENANT",
     "requiredRoles": [
