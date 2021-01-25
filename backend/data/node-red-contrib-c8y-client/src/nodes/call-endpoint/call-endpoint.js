@@ -16,12 +16,20 @@ module.exports = function(RED) {
             const fetchOptions = {
                 method: msg.method || config.method || 'GET',
                 body: JSON.stringify(msg.body || config.body) || undefined,
+                headers: msg.headers || {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
             }
             node.client.core.fetch(msg.endpoint || config.endpoint, fetchOptions).then(res => {
-                node.log(res.status);
                 msg.status = res.status;
+                delete msg.body;
+                delete msg.headers;
                 return res.json().then(json => {
                     msg.payload = json;
+                    node.send(msg);
+                }, error => {
+                    msg.paylaod = error;
                     node.send(msg);
                 });
             }, error => {
