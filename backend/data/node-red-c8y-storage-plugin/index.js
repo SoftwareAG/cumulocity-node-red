@@ -16,7 +16,12 @@ var storageModule = {
             settings.storageModuleOptions.password == null ||
             settings.storageModuleOptions.applicationId == null) {
             throw new Error("c8y storage module's required parameters are not defined");
-        }        
+        }
+
+        // setup environment variables to use for mqtt
+        process.env.MQTT_USER = process.env.C8Y_TENANT + '/' + process.env.C8Y_USER;
+        process.env.MQTT_PASSWORD = process.env.C8Y_PASSWORD;
+        console.log('MQTT BASEURL: ', process.env.C8Y_BASEURL_MQTT);
 
         this.collectionNames = Object.assign(constants.DefaultCollectionNames);
         if(settings.storageModuleOptions.collectionNames != null){
