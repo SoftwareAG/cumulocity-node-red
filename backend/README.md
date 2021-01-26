@@ -39,9 +39,13 @@ Within the `cumulocity.json` you can find underneath the `requiredRoles` attribu
 - ROLE_INVENTORY_READ
 - ROLE_INVENTORY_ADMIN
 - ROLE_EVENT_READ
+- ROLE_EVENT_ADMIN
 - ROLE_ALARM_READ
+- ROLE_ALARM_ADMIN
 - ROLE_DEVICE_CONTROL_READ
+- ROLE_DEVICE_CONTROL_ADMIN
 - ROLE_MEASUREMENT_READ
+- ROLE_MEASUREMENT_ADMIN
 
 You can add all the desired roles to this array in case you need more.
 
