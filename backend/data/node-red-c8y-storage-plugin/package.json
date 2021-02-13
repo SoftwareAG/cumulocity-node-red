@@ -1,7 +1,7 @@
 {
   "name": "node-red-c8y-storage-plugin",
   "version": "0.0.1",
-  "description": "Node Red c8y Storage Plugin",
+  "description": "Node-RED c8y Storage Plugin",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
