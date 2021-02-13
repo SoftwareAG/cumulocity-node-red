@@ -1,6 +1,6 @@
-# Cumulocity - Node Red backend
-This docker image provides node red as a microservice to Cumulocity.
-You are also able to directly access the node red frontend by navigation to the `/service/node-red/` endpoint of your tenant. Additionally there is an optional frontend application within this repository to integrate the node-red frontend seamlessly into Cumulocity.
+# Cumulocity - Node-RED backend
+This docker image provides Node-RED as a microservice to Cumulocity.
+You are also able to directly access the Node-RED frontend by navigation to the `/service/node-red/` endpoint of your tenant. Additionally there is an optional frontend application within this repository to integrate the Node-RED frontend seamlessly into Cumulocity.
 
 ## How to build & deploy
 
@@ -29,12 +29,12 @@ Afterwards you can start a new container by executing:
 docker run -it -p 80:80 --name mynodered --env-file env.list node-red-ms
 ```
 ## Access Rights
-This microservice provides two roles which you can use to limit the access rights to node red. 
+This microservice provides two roles which you can use to limit the access rights to Node-RED. 
 There is an `ROLE_NODE_RED_READ` role, which allows read access (`GET` method) to all endpoints.
 The other role is `ROLE_NODE_RED_ADMIN`, which is required for all other methods then `GET`.
 Some endpoints/directories like `/red/images` and `/icons/` are freely accessible because they only contain images/icons. 
 
-Within the `cumulocity.json` you can find underneath the `requiredRoles` attribute an array of roles that are provided to the microservices user. This currently array only contains **READ** rights for the usual device APIs:
+Within the `cumulocity.json` you can find underneath the `requiredRoles` attribute an array of roles that are provided to the microservices user. This array currently only contains **READ** and **ADMIN** rights for the usual device APIs:
 
 - ROLE_INVENTORY_READ
 - ROLE_INVENTORY_ADMIN
@@ -50,7 +50,7 @@ Within the `cumulocity.json` you can find underneath the `requiredRoles` attribu
 You can add all the desired roles to this array in case you need more.
 
 ## Data persistence
-To persist the created flows and store settings the microservice uses a [custom storage plugin](data/node-red-c8y-storage-plugin/README.md) for node red to store those settings within Cumulocity's inventory.
+To persist the created flows and store settings the microservice uses a [custom storage plugin](data/node-red-c8y-storage-plugin/README.md) for Node-RED to store those settings within Cumulocity's inventory.
 
 ## :bangbang: Credential encryption :bangbang:
 As credentials are as well stored within the inventory, please make sure that all users who have access to the inventory are also allowed to see those credentials.
@@ -58,4 +58,4 @@ The credentials can be encrypted using the [settings.js](data/settings.js) file,
 In the future I would like to automate the generation of this secret and then store it encrypted within the tenant options.
 
 ## Default nodes
-Prepackaged with this node red microservice you are also receiving some [basic Cumulocity nodes](data/node-red-contrib-c8y-client/README.md).
+Prepackaged with this Node-RED microservice you are also receiving some [basic Cumulocity nodes](data/node-red-contrib-c8y-client/README.md).

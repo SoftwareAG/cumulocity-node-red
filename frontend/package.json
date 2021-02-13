@@ -44,7 +44,7 @@
   },
   "c8y": {
     "application": {
-      "name": "Node RED",
+      "name": "Node-RED",
       "contextPath": "node-red-ui",
       "key": "node-red-ui-application-key",
       "rightDrawer": false,

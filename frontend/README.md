@@ -1,8 +1,8 @@
-# Cumulocity - Node Red frontend
-This angular application is an optional addition to the node red microservice.
-You are also able to directly access the node red frontend without this application by navigation to the `/service/node-red/` endpoint of your tenant.
+# Cumulocity - Node-RED frontend
+This angular application is an optional addition to the Node-RED microservice.
+You are also able to directly access the Node-RED frontend without this application by navigation to the `/service/node-red/` endpoint of your tenant.
 
-The only purpose of this app is to integrate the node red UI via an iframe into an Cumulocity app to allow seamless navigation between the different apps of a tenant.
+The only purpose of this app is to integrate the Node-RED UI via an iframe into an Cumulocity app to allow seamless navigation between the different apps of a tenant.
 
 ## How to build & deploy
 

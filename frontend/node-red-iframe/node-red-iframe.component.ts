@@ -27,7 +27,7 @@ export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
           this.setupIframe();
         } else {
           this.hasRequiredRoles = false;
-          this.alertService.warning('You are missing the required roles to access the Node RED backend.');
+          this.alertService.warning('You are missing the required roles to access the Node-RED backend.');
         }
       } else {
         this.hasRequiredRoles = false;
