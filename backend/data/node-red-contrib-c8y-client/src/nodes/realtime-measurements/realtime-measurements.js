@@ -15,7 +15,7 @@ module.exports = function(RED) {
 
         const topic = '/measurements/' + (config.deviceId || '*');
         this.log(`Subscribing to: ${topic} on tenant: ${tenant} and url: ${baseUrl}`);
-        node.client.realtime.subscribe(topic, (evt) => {
+        const subscription = node.client.realtime.subscribe(topic, (evt) => {
             const msg = {
                 payload: evt
             };
@@ -23,8 +23,8 @@ module.exports = function(RED) {
         });
 
         node.on('close', function() {
-            if (node.client && this.subscription) {
-                node.client.realtime.unsubscribe(this.subscription);
+            if (node.client && subscription) {
+                node.client.realtime.unsubscribe(subscription);
             }
         });
     }
