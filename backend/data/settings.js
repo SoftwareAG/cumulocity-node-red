@@ -30,7 +30,13 @@ module.exports = {
             }
 
             // do not check permissions when requesting images/icons
-            if (req.url && (req.url.startsWith('/red/images') || req.url.startsWith('/icons/'))) {
+            if (req.url && req.method === 'GET' && (req.url.startsWith('/red/images') || req.url.startsWith('/icons/'))) {
+                next();
+                return;
+            }
+
+            // add public path for allowing all request
+            if (req.url && (req.url.startsWith('/public/'))) {
                 next();
                 return;
             }
