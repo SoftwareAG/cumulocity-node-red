@@ -18,7 +18,8 @@
       "realtime-events": "src/nodes/realtime-events/realtime-events.js",
       "realtime-measurements": "src/nodes/realtime-measurements/realtime-measurements.js",
       "realtime-operations": "src/nodes/realtime-operations/realtime-operations.js",
-      "c8y-http-auth": "src/nodes/c8y-http-auth/c8y-http-auth.js"
+      "c8y-http-auth": "src/nodes/c8y-http-auth/c8y-http-auth.js",
+      "c8y-check-roles": "src/nodes/c8y-check-roles/c8y-check-roles.js"
     }
   },
   "dependencies": {
