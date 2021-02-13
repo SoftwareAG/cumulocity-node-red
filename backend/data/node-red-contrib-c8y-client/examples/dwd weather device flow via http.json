@@ -1,0 +1,328 @@
+[
+    {
+        "id": "6e6c87d2.5ca728",
+        "type": "tab",
+        "label": "Weather Düsseldorf",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "79e13d58.4a9824",
+        "type": "debug",
+        "z": "6e6c87d2.5ca728",
+        "name": "measurement",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "96b2330c.c6849",
+        "type": "inject",
+        "z": "6e6c87d2.5ca728",
+        "name": "create device",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 40,
+        "wires": [
+            [
+                "708a9b0b.deae1c"
+            ]
+        ]
+    },
+    {
+        "id": "730d2cdc.a230c4",
+        "type": "call-endpoint",
+        "z": "6e6c87d2.5ca728",
+        "name": "inventory create",
+        "method": "POST",
+        "endpoint": "/inventory/managedObjects",
+        "x": 960,
+        "y": 120,
+        "wires": [
+            [
+                "964bab43.6cdec"
+            ]
+        ]
+    },
+    {
+        "id": "309db559.0966fa",
+        "type": "call-endpoint",
+        "z": "6e6c87d2.5ca728",
+        "name": "create measurement",
+        "method": "POST",
+        "endpoint": "/measurement/measurements",
+        "x": 1100,
+        "y": 320,
+        "wires": [
+            [
+                "79e13d58.4a9824"
+            ]
+        ]
+    },
+    {
+        "id": "ad8a8f20.2fdc1",
+        "type": "function",
+        "z": "6e6c87d2.5ca728",
+        "name": "create Device",
+        "func": "\nreturn {\n    body: {\n        c8y_IsDevice: {},\n        name: 'Node-RED Weather',\n        type: 'weather_ms_device'\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 780,
+        "y": 120,
+        "wires": [
+            [
+                "730d2cdc.a230c4"
+            ]
+        ]
+    },
+    {
+        "id": "621843f2.0f508c",
+        "type": "function",
+        "z": "6e6c87d2.5ca728",
+        "name": "transform into measurement",
+        "func": "const measurementBody = {\n    type: 'c8y_Weather',\n    time: new Date().toISOString(),\n    source: {\n        id: ''\n    },\n    c8y_TemperatureMeasurement: {\n        T: {\n            value: msg.payload.tempc,\n            unit: 'C'\n        }\n    },\n    c8y_HumidityMeasurement: {\n        h : {\n            value : msg.payload.humidity,\n            unit: '%RH'\n        }\n    },\n    c8y_WindspeedMeasurement: {\n        W: {\n            value: msg.payload.windspeed,\n            unit: 'm/s'\n        }\n    },\n    c8y_PrecipitationMeasurement: {\n        P: {\n            value: msg.payload.precipitation_perc,\n            unit: '%'\n        }\n    },\n    c8y_WinddirectionMeasurement: {\n        WD: {\n            value: msg.payload.winddirection,\n            unit: '°'\n        }\n    },\n    c8y_PrecipitationNext24hMeasurement: {\n        PN24: {\n            value: msg.payload.precipitationNext24h,\n            unit: '%'\n        }\n    }\n};\n\nreturn {body: measurementBody};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 640,
+        "y": 320,
+        "wires": [
+            [
+                "9e590892.6d578"
+            ]
+        ]
+    },
+    {
+        "id": "fe320e92.72dd98",
+        "type": "dwdweather",
+        "z": "6e6c87d2.5ca728",
+        "name": "",
+        "mosmixStation": "10400",
+        "lookAheadHours": "0",
+        "additionalFields": "",
+        "repeat": "0",
+        "topic": "",
+        "x": 380,
+        "y": 320,
+        "wires": [
+            [
+                "621843f2.0f508c",
+                "ff6ecfd1.9fd068"
+            ]
+        ]
+    },
+    {
+        "id": "ff6ecfd1.9fd068",
+        "type": "debug",
+        "z": "6e6c87d2.5ca728",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "708a9b0b.deae1c",
+        "type": "call-endpoint",
+        "z": "6e6c87d2.5ca728",
+        "name": "check if device exists",
+        "method": "GET",
+        "endpoint": "/identity/externalIds/c8y_Serial/weather-test",
+        "x": 300,
+        "y": 80,
+        "wires": [
+            [
+                "25fc4a9c.50f496"
+            ]
+        ]
+    },
+    {
+        "id": "21319ccb.37a6ac",
+        "type": "inject",
+        "z": "6e6c87d2.5ca728",
+        "name": "Trigger measurement creation every 1 minute",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 240,
+        "y": 200,
+        "wires": [
+            [
+                "fe320e92.72dd98"
+            ]
+        ]
+    },
+    {
+        "id": "964bab43.6cdec",
+        "type": "function",
+        "z": "6e6c87d2.5ca728",
+        "name": "build request for indentity",
+        "func": "\nreturn {\n    endpoint: '/identity/globalIds/' + msg.payload.id + '/externalIds',\n    body: {\n    \t\"externalId\": \"weather-test\",\n        \"type\": \"c8y_Serial\"\n    },\n    method: 'POST'\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1190,
+        "y": 120,
+        "wires": [
+            [
+                "42935136.c5d23"
+            ]
+        ]
+    },
+    {
+        "id": "9e590892.6d578",
+        "type": "change",
+        "z": "6e6c87d2.5ca728",
+        "name": "set source id",
+        "rules": [
+            {
+                "p": "body.source.id",
+                "t": "set",
+                "pt": "msg",
+                "tot": "flow",
+                "to": "weatherMOId"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 320,
+        "wires": [
+            [
+                "309db559.0966fa"
+            ]
+        ]
+    },
+    {
+        "id": "42935136.c5d23",
+        "type": "call-endpoint",
+        "z": "6e6c87d2.5ca728",
+        "name": "create identity",
+        "method": "GET",
+        "endpoint": "",
+        "x": 1420,
+        "y": 120,
+        "wires": [
+            [
+                "f2e69e71.50d358"
+            ]
+        ]
+    },
+    {
+        "id": "25fc4a9c.50f496",
+        "type": "switch",
+        "z": "6e6c87d2.5ca728",
+        "name": "check response status",
+        "property": "status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "404",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 540,
+        "y": 80,
+        "wires": [
+            [
+                "f2e69e71.50d358"
+            ],
+            [
+                "ad8a8f20.2fdc1"
+            ]
+        ]
+    },
+    {
+        "id": "f2e69e71.50d358",
+        "type": "change",
+        "z": "6e6c87d2.5ca728",
+        "name": "set source id",
+        "rules": [
+            {
+                "p": "weatherMOId",
+                "t": "set",
+                "pt": "flow",
+                "tot": "msg",
+                "to": "payload.managedObject.id"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1630,
+        "y": 80,
+        "wires": [
+            [
+                "bb237097.c19bc8"
+            ]
+        ]
+    },
+    {
+        "id": "bb237097.c19bc8",
+        "type": "debug",
+        "z": "6e6c87d2.5ca728",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1810,
+        "y": 80,
+        "wires": []
+    }
+]
