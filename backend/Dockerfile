@@ -1,4 +1,4 @@
-FROM nodered/node-red:1.2.7-12-minimal
+FROM nodered/node-red:1.2.9-12-minimal
 RUN cd /data && npm install @c8y/client
 COPY ./data /data
 USER root
