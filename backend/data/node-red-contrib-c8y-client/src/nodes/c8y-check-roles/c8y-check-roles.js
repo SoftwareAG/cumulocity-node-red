@@ -1,5 +1,4 @@
 const c8yClientLib = require('@c8y/client');
-const MicroserviceClientRequestAuth = require('./c8yRequestHeaderAuth');
 
 module.exports = function(RED) {
     function C8yCheckRolesNode(config) {
@@ -12,7 +11,7 @@ module.exports = function(RED) {
             node.on('input', function(msg, send, done) {
                 if (msg && msg.req && msg.req.headers) {
                     try {
-                        const auth = new MicroserviceClientRequestAuth(msg.req.headers);
+                        const auth = new c8yClientLib.MicroserviceClientRequestAuth(msg.req.headers);
                         const client = new c8yClientLib.Client(auth, baseUrl);
                         if (process.env.APPLICATION_KEY) {
                             const header = {'X-Cumulocity-Application-Key': process.env.APPLICATION_KEY};

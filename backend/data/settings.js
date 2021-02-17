@@ -1,6 +1,5 @@
 
 const c8yClientLib = require('@c8y/client');
-const customAuth = require('./c8yRequestHeaderAuth');
 
 module.exports = {
     // the tcp port that the Node-RED web server is listening on
@@ -41,7 +40,7 @@ module.exports = {
                 return;
             }
     
-            const auth = new customAuth(req.headers);
+            const auth = new c8yClientLib.MicroserviceClientRequestAuth(req.headers);
             const client = new c8yClientLib.Client(auth, process.env.C8Y_BASEURL);
     
             if (process.env.APPLICATION_KEY) {
