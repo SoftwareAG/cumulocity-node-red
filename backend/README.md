@@ -53,9 +53,15 @@ You can add all the desired roles to this array in case you need more.
 To persist the created flows and store settings the microservice uses a [custom storage plugin](data/node-red-c8y-storage-plugin/README.md) for Node-RED to store those settings within Cumulocity's inventory.
 
 ## :bangbang: Credential encryption :bangbang:
-As credentials are as well stored within the inventory, please make sure that all users who have access to the inventory are also allowed to see those credentials.
-The credentials can be encrypted using the [settings.js](data/settings.js) file, you just need to modify the value of `credentialSecret`. By default a very weak secret is used, so please change it so something different and stronger.
-In the future I would like to automate the generation of this secret and then store it encrypted within the tenant options.
+As credentials are as well stored within cumulocity (encrypted tenant option), please make sure that all users who somehow have access to the those encrypted tenant options are also allowed to see those credentials.
+Encrypted tenant options can only be decrypted by using a service user to access them.
+Additionally to the encryption done with the encrypted tenant option, the tenant option is aswell encrypted via the Node-RED itself.
+This additional encryption can be configured using the [settings.js](data/settings.js) file, you just need to modify the value of `credentialSecret`. By default a very weak secret is used, so please change it so something different and stronger.
+
+## Connecting to the tenant via MQTT
+If you want to use MQTT to connect to your Cumulocity tenant, you can use the credentials which are provided in the following environment variables: `MQTT_USER` and `MQTT_PASSWORD`.
+You can use these environment variables directly within the your MQTT credentials by placing `$(MQTT_USER)` and `$(MQTT_PASSWORD)` in the Username and Password input fields.
+The `MQTT_USER` follows the following schema: `<tenantId>/<username>`.
 
 ## Default nodes
 Prepackaged with this Node-RED microservice you are also receiving some [basic Cumulocity nodes](data/node-red-contrib-c8y-client/README.md).
