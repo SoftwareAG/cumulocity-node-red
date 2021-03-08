@@ -1,7 +1,6 @@
 {
   "name": "node-red-ui",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "c8ycli server --env.extraWebpackConfig=./c8ycli-extra-webpack.config.js",
@@ -15,6 +14,7 @@
   ],
   "author": "Tristan Bastian",
   "license": "Apache-2.0",
+  "description": "This angular application is an optional addition to the Node-RED microservice.\r You are also able to directly access the Node-RED frontend without this application by navigation to the `/service/node-red/` endpoint of your tenant.",
   "dependencies": {
     "@angular/animations": "8.2.13",
     "@angular/cdk": "8.2.3",
@@ -27,9 +27,9 @@
     "@angular/platform-browser-dynamic": "8.2.13",
     "@angular/router": "8.2.13",
     "@angular/upgrade": "8.2.13",
-    "@c8y/client": "^1006.6.24",
-    "@c8y/ngx-components": "1006.6.24",
-    "@c8y/style": "1006.6.24",
+    "@c8y/client": "1007.0.24",
+    "@c8y/ngx-components": "1007.0.24",
+    "@c8y/style": "1007.0.24",
     "core-js": "^3.4.0",
     "rxjs": "~6.4.0",
     "url-search-params-polyfill": "6.0.0",
@@ -39,8 +39,8 @@
     "@angular-devkit/build-angular": "0.803.23",
     "@angular/compiler-cli": "8.2.13",
     "@angular/language-service": "8.2.13",
-    "typescript": "3.5.3",
-    "@c8y/cli": "1006.6.24"
+    "@c8y/cli": "1007.0.24",
+    "typescript": "3.5.3"
   },
   "c8y": {
     "application": {

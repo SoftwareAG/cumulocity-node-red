@@ -22,7 +22,7 @@ import { NodeRedIframeComponent } from './node-red-iframe/node-red-iframe.compon
     }
   ],
   bootstrap: [BootstrapComponent],
-   declarations: [
+  declarations: [
     NodeRedIframeComponent
   ]
 })
