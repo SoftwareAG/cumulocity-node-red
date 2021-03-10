@@ -16,12 +16,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Build project # This would actually build your project, using zip for an example artifact
+      - name: Build backend project
         run: |
           cd backend
           docker build -t node-red-ms .
           docker save node-red-ms -o image.tar
           zip --junk-paths node-red cumulocity.json image.tar
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Build frontend project
+        run: |
+          cd frontend
+          npm install
+          npm run build
+          zip -r --junk-paths node-red-ui dist/apps/node-red-ui/*
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -32,8 +41,8 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset 
+      - name: Upload Release Asset backend
+        id: upload-release-asset-backend 
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -41,4 +50,14 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: ./backend/node-red.zip
           asset_name: node-red.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset frontend
+        id: upload-release-asset-frontend 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./frontend/node-red-ui.zip
+          asset_name: node-red-ui.zip
           asset_content_type: application/zip
