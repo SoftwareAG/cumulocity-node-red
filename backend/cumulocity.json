@@ -1,5 +1,4 @@
 {
-    "contextPath": "node-red",
     "apiVersion": "1",
     "version": "1.0.1",
     "provider": {
