@@ -18,11 +18,6 @@
  * BROWSER POLYFILLS
  */
 
-/** IE9, IE10, IE11, Evergreen browsers require the following polyfills. */
-import '@angular-devkit/build-angular/src/angular-cli-files/models/es5-jit-polyfills.js';
-import '@angular-devkit/build-angular/src/angular-cli-files/models/es5-polyfills.js';
-import '@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js';
-
 /**
  * By default, zone.js will patch all possible macroTask and DomEvents
  * user can disable parts of macroTask/DomEvents patch by setting following flags
@@ -35,11 +30,4 @@ import '@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js/dist/zone';  // Included with Angular CLI.
-
-/***************************************************************************************************
- * APPLICATION IMPORTS
- */
-import 'url-search-params-polyfill';
-import { addPolyfills } from '@c8y/ngx-components/polyfills';
-addPolyfills();
+import 'zone.js/dist/zone'; // Included with Angular CLI.
