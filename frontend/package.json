@@ -33,7 +33,7 @@
   "scripts": {
     "start": "c8ycli server --env.extraWebpackConfig=./c8ycli-extra-webpack.config.js",
     "build": "rimraf dist && c8ycli build --env.extraWebpackConfig=./c8ycli-extra-webpack.config.js",
-    "build:ci": "rimraf dist && c8ycli build --fast true --env.extraWebpackConfig=./c8ycli-extra-webpack.config.js",
+    "build:ci": "rimraf dist && c8ycli build --fast true --env.extraWebpackConfig=./c8ycli-extra-webpack.config.js ./",
     "deploy": "c8ycli deploy",
     "locale-extract": "c8ycli locale-extract"
   },
