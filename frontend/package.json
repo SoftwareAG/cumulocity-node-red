@@ -1,6 +1,6 @@
 {
   "name": "node-red-ui",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This angular application is an optional addition to the Node-RED microservice.\r You are also able to directly access the Node-RED frontend without this application by navigation to the `/service/node-red/` endpoint of your tenant.",
   "main": "index.js",
   "dependencies": {

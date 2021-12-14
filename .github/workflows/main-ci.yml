@@ -71,6 +71,7 @@ jobs:
         with:
           name: node-red-ui-${{ env.C8Y_VERSION }}-${{ github.event.number }}-${{ github.run_id }}
           if-no-files-found: error
+          retention-days: 5
           path: frontend/dist/apps/node-red-ui/
 
       - name: 🚧  Build Backend
@@ -85,6 +86,7 @@ jobs:
         with:
           name: node-red-${{ env.C8Y_VERSION }}-${{ github.event.number }}-${{ github.run_id }}
           if-no-files-found: error
+          retention-days: 5
           path: |
             backend/cumulocity.json
             backend/image.tar
