@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { AlertService, AppStateService, ModalService } from '@c8y/ngx-components';
 import { FetchClient, TenantOptionsService, UserService } from '@c8y/client';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-node-red-iframe',
@@ -10,16 +11,21 @@ import { Subscription } from 'rxjs';
 export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
   hasRequiredRoles = false;
   currentUserSubscription: Subscription;
-  iframeID = 'node-red-iframe';
-  private iframeURL = '/service/node-red/';
+  private iframeURL: string;
+
+  @ViewChild('iframe') iframe: ElementRef;
+
   constructor(
+    private route: ActivatedRoute,
     private appState: AppStateService,
     private userService: UserService,
     private alertService: AlertService,
     private client: FetchClient,
     private tenantOptions: TenantOptionsService,
     private modalService: ModalService
-  ) {}
+  ) {
+    this.iframeURL = this.route.snapshot.data.src;
+  }
 
   ngAfterViewInit(): void {
     this.currentUserSubscription = this.appState.currentUser.subscribe((user) => {
@@ -107,7 +113,7 @@ export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
 
   private setIframeUrl() {
     // set iFrame's SRC attribute
-    const iFrameWin = document.getElementById(this.iframeID) as HTMLIFrameElement;
-    iFrameWin.src = this.iframeURL;
+    const iframe: HTMLIFrameElement = this.iframe.nativeElement;
+    iframe.src = this.iframeURL;
   }
 }

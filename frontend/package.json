@@ -50,6 +50,7 @@
       "key": "node-red-ui-application-key",
       "rightDrawer": false,
       "hideNavigator": true,
+      "tabsHorizontal": true,
       "dynamicOptionsUrl": "/apps/public/public-options/options.json",
       "icon": {
         "url": "url(/apps/node-red-ui/assets/app-icon.png)"
