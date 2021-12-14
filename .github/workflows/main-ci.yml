@@ -70,6 +70,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: node-red-ui-${{ env.C8Y_VERSION }}-${{ github.event.number }}-${{ github.run_id }}
+          if-no-files-found: error
           path: frontend/dist/apps/node-red-ui/
 
       - name: 🚧  Build Backend
@@ -83,6 +84,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: node-red-${{ env.C8Y_VERSION }}-${{ github.event.number }}-${{ github.run_id }}
+          if-no-files-found: error
           path: |
             backend/cumulocity.json
             backend/image.tar
