@@ -16,7 +16,7 @@ env:
 
 jobs:
   build:
-    name: Upload Release Asset
+    name: 🚧 Lint, Test, Build & (optionally) Release
     runs-on: ubuntu-latest
     steps:
       - name: Set RELEASE_VERSION env variable
