@@ -1,5 +1,5 @@
-FROM nodered/node-red:1.3.5-12-minimal
-RUN cd /data && npm install @c8y/client@1009.0.10
+FROM nodered/node-red:2.1.4-1-12-minimal
+RUN cd /data && npm install @c8y/client@1011.0.8
 COPY ./data /data
 USER root
 # compile typescript to javascript and afterwards remove node_modules to reduce container size

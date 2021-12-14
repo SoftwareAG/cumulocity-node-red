@@ -1,22 +1,24 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { AlertService, AppStateService } from '@c8y/ngx-components';
-import { FetchClient, UserService } from '@c8y/client';
+import { AlertService, AppStateService, ModalService } from '@c8y/ngx-components';
+import { FetchClient, TenantOptionsService, UserService } from '@c8y/client';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-node-red-iframe',
-  templateUrl: './node-red-iframe.component.html',
-  styleUrls: ['./node-red-iframe.component.less']
+  templateUrl: './node-red-iframe.component.html'
 })
 export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
   hasRequiredRoles = false;
   currentUserSubscription: Subscription;
   iframeID = 'node-red-iframe';
+  private iframeURL = '/service/node-red/';
   constructor(
     private appState: AppStateService,
     private userService: UserService,
     private alertService: AlertService,
-    private client: FetchClient
+    private client: FetchClient,
+    private tenantOptions: TenantOptionsService,
+    private modalService: ModalService
   ) {}
 
   ngAfterViewInit(): void {
@@ -41,10 +43,10 @@ export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
     }
   }
 
-  setupIframe() {
-    const iframeURL = '/service/node-red/';
+  private async setupIframe() {
 
     // workaround to get rid of the basic auth login prompt
+    let preAuthSent = false;
     const options = this.client.getFetchOptions();
     if (options && options.headers) {
       const headers: {[key: string]: string} = options.headers
@@ -58,15 +60,54 @@ export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
           const password = decoded.substring(userSeparatorIndex + 1);
           // pre-authenticate iframe in case of basic auth
           const req = new XMLHttpRequest();
-          req.open('GET', iframeURL, false, user, password);
+          req.open('GET', this.iframeURL, false, user, password);
           req.send();
+          preAuthSent = true;
         }
       }
     }
 
-    // set iFrame's SRC attribute
-    const iFrameWin = document.getElementById(this.iframeID);
-    iFrameWin['src'] = iframeURL;
+    // using OAuth
+    if (!preAuthSent) {
+      try {
+        const { data } = await this.tenantOptions.detail({category: 'jwt', key: 'xsrf-validation.enabled'});
+        if (data.value !== 'false') {
+          throw Error('');
+        }
+      } catch (e) {
+        this.alertService.add({
+          text: `To use Node-RED on a tenant that uses OAuth, you have to disable XSRF-Token validation. By closing this message we will try do this for you.`,
+          detailedData: `To disable XSRF-Token validation, you have to set the tenant option with the category: 'jwt', key: 'xsrf-validation.enabled' to the value: 'false'.`,
+          type: 'warning',
+          timeout: 0,
+          onClose: () => {this.disableXSRFTokenValidation()}
+        });
+        return;
+      }
+    }
+
+    this.setIframeUrl();
   }
 
+  private async disableXSRFTokenValidation() {
+    try {
+      await this.modalService.confirm(`Disable XSRF-Token validation`, `Are you sure that you would like to disable XSRF-Token validation?`, 'warning', { ok: 'Disable XSRF-Token validation', cancel: 'Cancel'});
+    } catch (e) {
+      // nothing to do, modal was canceled.
+      return;
+    }
+    try {
+      await this.tenantOptions.update({category: 'jwt', key: 'xsrf-validation.enabled', value: 'false'});
+    } catch (e) {
+      this.alertService.warning('Failed to disable XSRF-Token validation.');
+    }
+    
+    this.setIframeUrl();
+  }
+
+  private setIframeUrl() {
+    // set iFrame's SRC attribute
+    const iFrameWin = document.getElementById(this.iframeID) as HTMLIFrameElement;
+    iFrameWin.src = this.iframeURL;
+  }
 }

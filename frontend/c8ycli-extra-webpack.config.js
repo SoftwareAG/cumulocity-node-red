@@ -8,9 +8,11 @@ function config(env) {
 
   return {
     plugins: [
-      new CopyPlugin([
-        { from: './assets', to: 'assets' },
-      ])
+      new CopyPlugin({
+        patterns: [
+          { from: './assets', to: 'assets' },
+        ]
+      })
     ]
   };
 }
