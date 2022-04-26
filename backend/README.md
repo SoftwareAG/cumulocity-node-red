@@ -16,6 +16,11 @@ ZIP the docker image and the application manifest (`cumulocity.json`). Depending
 ```shell script
 zip node-red cumulocity.json image.tar
 ```
+or
+```shell script
+tar -a -c -f node-red.zip image.tar cumulocity.json
+```
+
 Make sure that the name of the resulting ZIP file is `node-red.zip` as the file name is also being used a application key within Cumulocity.
 The structure of the resulting ZIP file should then look like this:
 ```bash
