@@ -36,8 +36,13 @@
   },
   "scripts": {
     "start": "c8ycli server --env.extraWebpackConfig=./c8ycli-extra-webpack.config.js",
-    "build": "rimraf dist && c8ycli build --env.extraWebpackConfig=./c8ycli-extra-webpack.config.js",
-    "build:ci": "rimraf dist && c8ycli build --fast true --env.extraWebpackConfig=./c8ycli-extra-webpack.config.js ./",
+    "start:shell": "npm start -- --shell cockpit",
+    "clean": "rimraf dist",
+    "build": "c8ycli build --env.extraWebpackConfig=./c8ycli-extra-webpack.config.js",
+    "build:stock": "npm run build -- --app.isPackage=false --app.noAppSwitcher=\"\" --app.remotes=\"{}\" --app.name=Node-RED --app.contextPath=node-red-ui --app.key=node-red-ui-application-key --app.icon.url=\"url(/apps/node-red-ui/assets/app-icon.png)\"",
+    "build-ci": "npm run build -- --ci",
+    "build-ci:stock": "npm run build:stock -- --ci",
+    "build:ci": "npm run build:stock -- --ci && npm run build -- --ci",
     "deploy": "c8ycli deploy",
     "locale-extract": "c8ycli locale-extract",
     "postinstall": "ngcc",
@@ -51,15 +56,35 @@
   "license": "Apache-2.0",
   "c8y": {
     "application": {
-      "name": "Node-RED",
-      "contextPath": "node-red-ui",
-      "key": "node-red-ui-application-key",
-      "rightDrawer": false,
-      "hideNavigator": true,
+      "name": "Node-RED Plugins",
+      "contextPath": "node-red-ui-plugins",
+      "key": "node-red-ui-plugins-application-key",
       "tabsHorizontal": true,
-      "dynamicOptionsUrl": "/apps/public/public-options/options.json",
+      "noAppSwitcher": true,
+      "isPackage": true,
+      "package": "plugin",
+      "exports": [
+        {
+          "name": "Node-RED Admin Plugin",
+          "module": "NodeRedAdminModule",
+          "path": "./src/modules/node-red-admin/node-red-admin.module.ts",
+          "description": "Adds an UI for administrating Node-RED."
+        },
+        {
+          "name": "Node-RED Dashboard Plugin",
+          "module": "NodeRedDashboardModule",
+          "path": "./src/modules/node-red-dashboard/node-red-dashboard.module.ts",
+          "description": "Adds an UI for viewing Dashboards of Node-RED."
+        }
+      ],
+      "remotes": {
+        "node-red-ui": [
+          "NodeRedDashboardModule",
+          "NodeRedAdminModule"
+        ]
+      },
       "icon": {
-        "url": "url(/apps/node-red-ui/assets/app-icon.png)"
+        "url": "url(/apps/node-red-ui-plugins/assets/app-icon.png)"
       }
     },
     "cli": {}

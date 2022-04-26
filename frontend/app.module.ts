@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule as ngRouterModule } from '@angular/router';
-import { CoreModule, BootstrapComponent, RouterModule, HOOK_TABS } from '@c8y/ngx-components';
-import { NodeRedTabsFactory } from './tabs.factory';
-import { NodeRedIframeComponent } from './node-red-iframe/node-red-iframe.component';
+import { Router, RouterModule as ngRouterModule } from '@angular/router';
+import { CoreModule, BootstrapComponent, RouterModule, AppStateService } from '@c8y/ngx-components';
+import { NodeRedAdminModule } from '@modules/node-red-admin/node-red-admin.module';
+import { NodeRedDashboardModule } from '@modules/node-red-dashboard/node-red-dashboard.module';
+import { filter } from 'rxjs/operators';
 
 @NgModule({
   imports: [
@@ -13,35 +14,19 @@ import { NodeRedIframeComponent } from './node-red-iframe/node-red-iframe.compon
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'admin'
-      },
-      {
-        path: 'admin',
-        component: NodeRedIframeComponent,
-        data: {
-          src: '/service/node-red/'
-        }
-      },
-      {
-        path: 'dashboard',
-        component: NodeRedIframeComponent,
-        data: {
-          src: '/service/node-red/ui/'
-        }
+        redirectTo: 'node-red/admin'
       }
-    ], { enableTracing: false, useHash: true }),
-    CoreModule.forRoot()
+    ], { enableTracing: false, useHash: true, initialNavigation: 'disabled' }),
+    CoreModule.forRoot(),
+    NodeRedAdminModule,
+    NodeRedDashboardModule
   ],
   bootstrap: [BootstrapComponent],
-  declarations: [
-    NodeRedIframeComponent
-  ],
-  providers: [
-    {
-      provide: HOOK_TABS,
-      useClass: NodeRedTabsFactory,
-      multi: true
-    }
-  ]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private appState: AppStateService, private router: Router) {
+    this.appState.currentUser.pipe(filter(tmp => !!tmp)).subscribe(() => {
+      this.router.initialNavigation();
+    })
+  }
+}
