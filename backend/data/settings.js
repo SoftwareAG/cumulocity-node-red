@@ -13,7 +13,21 @@ module.exports = {
         password: process.env.C8Y_BOOTSTRAP_PASSWORD,
         applicationId: process.env.APPLICATION_KEY
     },
-    autoInstallModules: true,
+    externalModules: {
+        autoInstall: true,
+        autoInstallRetry: 30,
+        palette: {
+            allowInstall: true,
+            allowUpload: true,
+            allowList: [],
+            denyList: []
+         },
+         modules: {
+            allowInstall: true,
+            allowList: [],
+            denyList: []
+         }
+    },
     httpAdminMiddleware: async function(req, res, next) {
         try {
             // health endpoint for c8y
