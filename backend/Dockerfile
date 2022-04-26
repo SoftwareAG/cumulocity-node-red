@@ -1,5 +1,5 @@
-FROM nodered/node-red:2.1.4-1-12-minimal
-RUN cd /data && npm install @c8y/client@1011.0.8
+FROM nodered/node-red:2.2.2-12-minimal
+RUN cd /data && npm install @c8y/client@1013.0.117 && npm install node-red-dashboard@3.1.6
 COPY ./data /data
 USER root
 # compile typescript to javascript and afterwards remove node_modules to reduce container size

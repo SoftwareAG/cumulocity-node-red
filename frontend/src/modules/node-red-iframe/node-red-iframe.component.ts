@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { AlertService, AppStateService, ModalService } from '@c8y/ngx-components';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AlertService, AppStateService, gettext, ModalService } from '@c8y/ngx-components';
 import { FetchClient, TenantOptionsService, UserService } from '@c8y/client';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-node-red-iframe',
@@ -10,16 +11,21 @@ import { Subscription } from 'rxjs';
 export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
   hasRequiredRoles = false;
   currentUserSubscription: Subscription;
-  iframeID = 'node-red-iframe';
-  private iframeURL = '/service/node-red/';
+  private iframeURL: string;
+
+  @ViewChild('iframe') iframe: ElementRef;
+
   constructor(
+    private route: ActivatedRoute,
     private appState: AppStateService,
     private userService: UserService,
     private alertService: AlertService,
     private client: FetchClient,
     private tenantOptions: TenantOptionsService,
     private modalService: ModalService
-  ) {}
+  ) {
+    this.iframeURL = this.route.snapshot.data.src;
+  }
 
   ngAfterViewInit(): void {
     this.currentUserSubscription = this.appState.currentUser.subscribe((user) => {
@@ -29,7 +35,7 @@ export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
           this.setupIframe();
         } else {
           this.hasRequiredRoles = false;
-          this.alertService.warning('You are missing the required roles to access the Node-RED backend.');
+          this.alertService.warning(gettext('You are missing the required roles to access the Node-RED backend.'));
         }
       } else {
         this.hasRequiredRoles = false;
@@ -76,8 +82,8 @@ export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
         }
       } catch (e) {
         this.alertService.add({
-          text: `To use Node-RED on a tenant that uses OAuth, you have to disable XSRF-Token validation. By closing this message we will try do this for you.`,
-          detailedData: `To disable XSRF-Token validation, you have to set the tenant option with the category: 'jwt', key: 'xsrf-validation.enabled' to the value: 'false'.`,
+          text: gettext(`To use Node-RED on a tenant that uses OAuth, you have to disable XSRF-Token validation. By closing this message we will try do this for you.`),
+          detailedData: gettext(`To disable XSRF-Token validation, you have to set the tenant option with the category: 'jwt', key: 'xsrf-validation.enabled' to the value: 'false'.`),
           type: 'warning',
           timeout: 0,
           onClose: () => {this.disableXSRFTokenValidation()}
@@ -91,7 +97,7 @@ export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
 
   private async disableXSRFTokenValidation() {
     try {
-      await this.modalService.confirm(`Disable XSRF-Token validation`, `Are you sure that you would like to disable XSRF-Token validation?`, 'warning', { ok: 'Disable XSRF-Token validation', cancel: 'Cancel'});
+      await this.modalService.confirm(gettext(`Disable XSRF-Token validation`), gettext(`Are you sure that you would like to disable XSRF-Token validation?`), 'warning', { ok: gettext('Disable XSRF-Token validation'), cancel: gettext('Cancel')});
     } catch (e) {
       // nothing to do, modal was canceled.
       return;
@@ -99,7 +105,7 @@ export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
     try {
       await this.tenantOptions.update({category: 'jwt', key: 'xsrf-validation.enabled', value: 'false'});
     } catch (e) {
-      this.alertService.warning('Failed to disable XSRF-Token validation.');
+      this.alertService.warning(gettext('Failed to disable XSRF-Token validation.'));
     }
     
     this.setIframeUrl();
@@ -107,7 +113,7 @@ export class NodeRedIframeComponent implements OnDestroy, AfterViewInit {
 
   private setIframeUrl() {
     // set iFrame's SRC attribute
-    const iFrameWin = document.getElementById(this.iframeID) as HTMLIFrameElement;
-    iFrameWin.src = this.iframeURL;
+    const iframe: HTMLIFrameElement = this.iframe.nativeElement;
+    iframe.src = this.iframeURL;
   }
 }
