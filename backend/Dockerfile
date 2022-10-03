@@ -1,4 +1,4 @@
-FROM nodered/node-red:3.0.0-14-minimal
+FROM nodered/node-red:3.0.2-14-minimal
 RUN cd /data && npm install @c8y/client@1013.0.167 && npm install node-red-dashboard@3.1.7
 COPY ./data /data
 USER root
