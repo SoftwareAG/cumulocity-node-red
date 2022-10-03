@@ -1,39 +1,7 @@
 {
   "name": "node-red-ui",
   "version": "1.2.0",
-  "description": "This angular application is an optional addition to the Node-RED microservice.\r You are also able to directly access the Node-RED frontend without this application by navigation to the `/service/node-red/` endpoint of your tenant.",
-  "dependencies": {
-    "@angular/animations": "12.2.14",
-    "@angular/cdk": "12.2.13",
-    "@angular/common": "12.2.14",
-    "@angular/compiler": "12.2.14",
-    "@angular/core": "12.2.14",
-    "@angular/forms": "12.2.14",
-    "@angular/platform-browser": "12.2.14",
-    "@angular/platform-browser-dynamic": "12.2.14",
-    "@angular/router": "12.2.14",
-    "@angular/upgrade": "12.2.14",
-    "@c8y/client": "1013.0.167",
-    "@c8y/ngx-components": "1013.0.167",
-    "@c8y/style": "1013.0.167",
-    "@ngx-translate/core": "13.0.0",
-    "rxjs": "~6.6.3",
-    "zone.js": "~0.11.4"
-  },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "12.2.14",
-    "@angular/compiler-cli": "12.2.14",
-    "@angular/language-service": "12.2.14",
-    "@angular/service-worker": "12.2.14",
-    "@angular/localize": "12.2.14",
-    "@types/jest": "^27.0.3",
-    "@types/webpack": "^5.28.0",
-    "file-loader": "^6.2.0",
-    "jest": "^27.4.5",
-    "jest-preset-angular": "^11.0.1",
-    "typescript": "4.2.4",
-    "@c8y/cli": "1013.0.167"
-  },
+  "description": "This angular application is an optional addition to the Node-RED microservice. You are also able to directly access the Node-RED frontend without this application by navigation to the `/service/node-red/` endpoint of your tenant.",
   "scripts": {
     "start": "c8ycli server --env.extraWebpackConfig=./c8ycli-extra-webpack.config.js",
     "start:shell": "npm start -- --shell cockpit",
@@ -54,6 +22,38 @@
   ],
   "author": "Tristan Bastian",
   "license": "Apache-2.0",
+  "dependencies": {
+    "@angular/animations": "12.2.14",
+    "@angular/cdk": "12.2.13",
+    "@angular/common": "12.2.14",
+    "@angular/compiler": "12.2.14",
+    "@angular/core": "12.2.14",
+    "@angular/forms": "12.2.14",
+    "@angular/platform-browser": "12.2.14",
+    "@angular/platform-browser-dynamic": "12.2.14",
+    "@angular/router": "12.2.14",
+    "@angular/upgrade": "12.2.14",
+    "@c8y/client": "1013.0.292",
+    "@c8y/ngx-components": "1013.0.292",
+    "@ngx-translate/core": "13.0.0",
+    "rxjs": "~6.6.3",
+    "zone.js": "~0.11.4",
+    "@c8y/style": "1013.0.292"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "12.2.14",
+    "@angular/compiler-cli": "12.2.14",
+    "@angular/language-service": "12.2.14",
+    "@angular/service-worker": "12.2.14",
+    "@angular/localize": "12.2.14",
+    "@types/jest": "^27.0.3",
+    "@types/webpack": "^5.28.0",
+    "file-loader": "^6.2.0",
+    "jest": "^27.4.5",
+    "jest-preset-angular": "^11.0.1",
+    "typescript": "4.2.4",
+    "@c8y/cli": "1013.0.292"
+  },
   "c8y": {
     "application": {
       "name": "Node-RED Plugins",
@@ -85,7 +85,8 @@
       },
       "icon": {
         "url": "url(/apps/node-red-ui-plugins/assets/app-icon.png)"
-      }
+      },
+      "dynamicOptionsUrl": "/apps/public/public-options/options.json"
     },
     "cli": {}
   },
