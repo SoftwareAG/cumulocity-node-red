@@ -12,7 +12,7 @@ on:
 name: Main CI
 
 env:
-  NODE_VERSION: '12'
+  NODE_VERSION: '14'
 
 jobs:
   build:
@@ -55,7 +55,7 @@ jobs:
       - name: Install Node.js dependencies
         run: | 
           cd frontend
-          npm install
+          npm ci
 
       - name: 🕵️‍♂️  Lint
         run: | 
