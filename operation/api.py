@@ -64,7 +64,7 @@ class Connector(object):
             response = requests.request("PUT", f'{self.url}/flow/{id}', headers=self.headers, data=body)
             logger.debug('Response from request: ' + str(response.text))
             logger.debug('Response from request with code : ' + str(response.status_code))
-            if response.status_code == 201:
+            if response.status_code == 204:
                 logger.debug('Flow updated')
                 return response.text
             else:
@@ -82,7 +82,7 @@ class Connector(object):
             response = requests.request("POST", f'{self.url}/flow', headers=self.headers, data=body)
             logger.debug('Response from request: ' + str(response.text))
             logger.debug('Response from request with code : ' + str(response.status_code))
-            if response.status_code == 201:
+            if response.status_code == 204:
                 logger.debug('Flow created')
                 return response.text
             else:
@@ -99,7 +99,7 @@ class Connector(object):
             response = requests.request("DELETE", f'{self.url}/flow/{id}', headers=self.headers, data=self.payload)
             logger.debug('Response from request: ' + str(response.text))
             logger.debug('Response from request with code : ' + str(response.status_code))
-            if response.status_code == 201:
+            if response.status_code == 204:
                 logger.debug('Flow created')
                 return response.text
             else:
