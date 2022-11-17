@@ -5,6 +5,7 @@
     "description": "Inject the node-red flow to the runtime on the device.",
     "deviceId": "<ID>",
     "data": {
+        "id": "<flowid>",
         "label": "<NAME>",
         "disabled": false,
         "info": "",
