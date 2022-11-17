@@ -1,5 +1,59 @@
 {
-    
-
-
+    "c8y_NodeRed": {
+        "type": "create"
+    },
+    "description": "Inject the node-red flow to the runtime on the device.",
+    "deviceId": "<ID>",
+    "data": {
+        "label": "<NAME>",
+        "disabled": false,
+        "info": "",
+        "nodes": [
+            {
+                "id": "ae0d8ac2c1089eee",
+                "type": "inject",
+                "z": "6b3766c18fc4b924",
+                "name": "",
+                "props": [
+                    {
+                        "p": "payload"
+                    },
+                    {
+                        "p": "topic",
+                        "vt": "str"
+                    }
+                ],
+                "repeat": "",
+                "crontab": "",
+                "once": false,
+                "onceDelay": 0.1,
+                "topic": "",
+                "payload": "",
+                "payloadType": "date",
+                "x": 180,
+                "y": 220,
+                "wires": [
+                    [
+                        "bebae7c87b54ce35"
+                    ]
+                ]
+            },
+            {
+                "id": "bebae7c87b54ce35",
+                "type": "debug",
+                "z": "6b3766c18fc4b924",
+                "name": "debug 8",
+                "active": true,
+                "tosidebar": true,
+                "console": false,
+                "tostatus": false,
+                "complete": "false",
+                "statusVal": "",
+                "statusType": "auto",
+                "x": 400,
+                "y": 220,
+                "wires": []
+            }
+        ]
+    }
 }
