@@ -1,0 +1,17 @@
+<c8y-title>Node-RED</c8y-title>
+<div class="card m-b-4">
+    <div class="card-header separator">
+        <h4>Deploy Node-RED flow to device</h4>
+    </div>
+    <div class="card-block overflow-visible">
+        <div class="col-md-5">
+            <c8y-form-group>
+                <item-selector [items]="flows" [(selected)]="selectedFlow" (valueChange)="flowChanged($event)">
+                </item-selector>
+            </c8y-form-group>
+        </div>
+    </div>
+    <div class="card-footer separator">
+        <button title="Save" class="btn btn-primary" (click)="save()">Save and Deploy</button>
+    </div>
+</div>

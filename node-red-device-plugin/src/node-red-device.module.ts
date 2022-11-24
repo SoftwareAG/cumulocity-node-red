@@ -1,23 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CoreModule, HOOK_TABS, HOOK_ONCE_ROUTE, ViewContext, FormsModule, TabsModule } from '@c8y/ngx-components';
+import { ItemSelector } from './item_selector/item-selector.component';
 import { NodeRedDeviceGuard } from './node-red-device.guard';
-import { NodeRedIframeComponent } from './node-red-iframe.component';
+import { NodeRedTabComponent } from './node-red-tab.component';
 
 
 const routes: Routes = [
     {
         path: 'nodered',
-        component: NodeRedIframeComponent
+        component: NodeRedTabComponent
     }
 ];
 
 @NgModule({
-    declarations: [NodeRedIframeComponent],
+    declarations: [NodeRedTabComponent, ItemSelector],
     imports: [
         RouterModule.forChild(routes), CoreModule, FormsModule
     ],
-    entryComponents: [NodeRedIframeComponent],
+    entryComponents: [NodeRedTabComponent],
     providers: [
         NodeRedDeviceGuard,
         {
@@ -26,7 +27,7 @@ const routes: Routes = [
             useValue: [{
                 context: ViewContext.Device,
                 path: 'nodered',
-                component: NodeRedIframeComponent,
+                component: NodeRedTabComponent,
                 label: 'Node Red',
                 priority: 2000,
                 icon: 'card-security',
