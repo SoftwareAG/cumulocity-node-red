@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { IManagedObject, InventoryService, IOperation, IResult, IResultList, OperationService } from '@c8y/client';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { IManagedObject, InventoryService, IResult, IResultList, OperationService } from '@c8y/client';
 
 import { ActivatedRoute } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Flow } from './shared/node-red-models';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { NodeRedFlowService } from './shared/node-red-flows.service';
+
 
 @Component({
   selector: 'app-node-red-tab',
@@ -11,21 +14,11 @@ import { filter } from 'rxjs/operators';
 export class NodeRedTabComponent implements OnInit {
 
   private deviceId: string;
-  device: IResult<IManagedObject>
-  flows: IResultList<IManagedObject>
-  selectedFlow: IManagedObject
-  private queryFlows: object = {
-
-  }
-  private filterFlows: object = {
-    query: `$filter=(full.type eq 'tab' and has(c8y_noderedV2))`
-  }
-
-
+  deployedFlows: Flow[];
+  modalRef?: BsModalRef;
 
   constructor(
-    private route: ActivatedRoute, private inventory: InventoryService, private operations: OperationService
-  ) { }
+    private route: ActivatedRoute, private inventory: InventoryService, private modalService: BsModalService, private flows: NodeRedFlowService) { }
 
   ngOnInit(): void {
     this.deviceId = this.route.snapshot.parent.data.contextData["id"];
@@ -33,41 +26,20 @@ export class NodeRedTabComponent implements OnInit {
   }
 
   async loadData() {
-    this.device = await (await this.inventory.detail(this.deviceId))
-    this.flows = await this.inventory.list(this.filterFlows);
-    console.log(this.flows)
+    this.deployedFlows = await this.flows.getDeployedFlows(this.deviceId);
+    console.log(this.deployedFlows)
   }
 
-  flowChanged(flow): void {
-    this.selectedFlow = flow;
+  openModal(template: TemplateRef<any>, size: 'modal-lg'): void {
+    this.modalRef = this.modalService.show(template, { class: size });
   }
 
-  async save() {
-    let queryNodes: object = {
-      query: `$filter=(full.z eq '${this.selectedFlow.full.id}' and has(c8y_noderedV2))`
-    }
-    let nodes = await (await this.inventory.list(queryNodes)).data.map(res => res.full)
-    let flow = {
-      id: this.selectedFlow.full.id,
-      label: this.selectedFlow.full.label,
-      disable: false,
-      info: this.selectedFlow.full.info,
-      env: [],
-      nodes: nodes
-    }
-    var encoded = btoa(JSON.stringify(flow))
-    const operation: IOperation = {
-      deviceId: this.deviceId,
-      c8y_NodeRed: {
-        type: "create"
-      },
-      description: `Inject the node-red flow "${this.selectedFlow.full.label}" to the runtime on the device.`,
-      data: encoded
-    }
-    this.operations.create(operation)
-    console.log(flow)
-
+  async remove(flow: Flow) {
+    this.flows.removeFromDevice(flow, this.deviceId).then(_ => this.loadData());
   }
 
+  update(flow: Flow) {
+    this.flows.updateOnDevice(flow, this.deviceId).then(_ => this.loadData());
+  }
 
 }

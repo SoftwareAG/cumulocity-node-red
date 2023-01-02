@@ -2,7 +2,7 @@
     [required]="true" [allowFreeEntries]="false" [displayProperty]="'full.label'">
     <c8y-li *c8yFor="
     let item of items;
-    loadMore: 'auto';
+    loadMore: 'false';
     pipe: filterPipe;
     notFound: notFoundTemplate
   " class="p-l-8 p-r-8 c8y-list__item--link interact" (click)="selected = item; setFilter(''); itemChanged()"
