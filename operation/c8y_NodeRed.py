@@ -9,6 +9,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(leve
 logger.info(f'Logger for {__name__} was initialised')
 
 import sys
+import base64
 from api import Connector
 from paho.mqtt import client as mqtt_client
 
@@ -19,10 +20,12 @@ client_id = f'{__name__}-operation-client'
 url = 'http://localhost:1880'
 
 
-array = sys.argv[1].split(',')
+array = sys.argv[1].split(",")
+data = base64(array[2]).decode('utf-8')
 client = mqtt_client.Client(client_id)
 client.connect(broker, port)
 
+#10,mqttx_00e62094,BASE64(data)
 
 try:
     client.publish('c8y/s/us',f'501,{__name__}')
