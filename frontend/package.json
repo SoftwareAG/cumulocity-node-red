@@ -1,6 +1,6 @@
 {
   "name": "node-red-ui",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "This angular application is an optional addition to the Node-RED microservice. You are also able to directly access the Node-RED frontend without this application by navigation to the `/service/node-red/` endpoint of your tenant.",
   "scripts": {
     "start": "c8ycli server --env.extraWebpackConfig=./c8ycli-extra-webpack.config.js",
@@ -33,12 +33,12 @@
     "@angular/platform-browser-dynamic": "12.2.14",
     "@angular/router": "12.2.14",
     "@angular/upgrade": "12.2.14",
-    "@c8y/client": "1015.0.182",
-    "@c8y/ngx-components": "1015.0.182",
+    "@c8y/client": "1015.0.258",
+    "@c8y/ngx-components": "1015.0.258",
     "@ngx-translate/core": "13.0.0",
     "rxjs": "~6.6.3",
     "zone.js": "~0.11.4",
-    "@c8y/style": "1015.0.182"
+    "@c8y/style": "1015.0.258"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "12.2.14",
@@ -52,7 +52,7 @@
     "jest": "^27.4.5",
     "jest-preset-angular": "^11.0.1",
     "typescript": "4.2.4",
-    "@c8y/cli": "1015.0.182"
+    "@c8y/cli": "1015.0.258"
   },
   "c8y": {
     "application": {
