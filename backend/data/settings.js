@@ -28,6 +28,10 @@ module.exports = {
             denyList: []
          }
     },
+    runtimeState: {
+        enabled: true,
+        ui: true
+    },
     httpAdminMiddleware: async function(req, res, next) {
         try {
             // health endpoint for c8y
