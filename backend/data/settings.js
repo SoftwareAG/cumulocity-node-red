@@ -363,6 +363,14 @@ module.exports = {
 
     // Customising the editor
     editorTheme: {
+        page: {
+            title: "Cumulocity IoT",
+            css: "/data/style.css"
+        },
+        header: {
+            title: "Cumulocity IoT",
+            image: "/data/logo.png"
+        },
         projects: {
             // To enable the Projects feature, set this value to true
             enabled: false
