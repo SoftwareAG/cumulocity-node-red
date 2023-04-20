@@ -2,7 +2,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStat
 import { AppStateService, NavigatorNode, NavigatorNodeFactory, Permissions, Tab, TabFactory } from "@c8y/ngx-components";
 import { Observable } from "rxjs";
 import { filter, map, take, tap } from 'rxjs/operators';
-import * as appPkg from '../../package.json'
+import { c8y } from '../../package.json'
 
 export abstract class NodeRedPermissionCheck implements CanActivate {
   protected abstract requiredRoles: string[];
@@ -32,7 +32,7 @@ export abstract class NodeRedNavigatorNodeCheck extends NodeRedPermissionCheck i
     }
 
     get(activatedRoute?: ActivatedRoute): NavigatorNode[] | Observable<NavigatorNode | NavigatorNode[]> {
-        if (this.appState.state?.app?.contextPath !== shortenContextPath(appPkg.c8y.application.contextPath)) {
+        if (this.appState.state?.app?.contextPath !== c8y.application.contextPath) {
             return this.canActivate().pipe(map((hasRole) => hasRole ? this.navNode : []));
             }
             return [];
@@ -49,13 +49,10 @@ export abstract class NodeRedTabsCheck implements TabFactory {
 
     get(activatedRoute?: ActivatedRoute): Tab | Tab[] | Observable<Tab | Tab[]> | Promise<Tab | Tab[]> {
         const url = this.router.url;
-        if (this.appState.state?.app?.contextPath === shortenContextPath(appPkg.c8y.application.contextPath)) {
+        if (this.appState.state?.app?.contextPath === c8y.application.contextPath) {
         return this.tab;
         }
         return [];
     }
 }
 
-function shortenContextPath(cp: string) {
-    return cp.replace('-plugins', '');
-}

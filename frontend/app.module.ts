@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router, RouterModule as ngRouterModule } from '@angular/router';
 import { CoreModule, BootstrapComponent, RouterModule, AppStateService } from '@c8y/ngx-components';
+import { filter } from 'rxjs/operators';
 import { NodeRedAdminModule } from '@modules/node-red-admin/node-red-admin.module';
 import { NodeRedDashboardModule } from '@modules/node-red-dashboard/node-red-dashboard.module';
-import { filter } from 'rxjs/operators';
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import { filter } from 'rxjs/operators';
     NodeRedAdminModule,
     NodeRedDashboardModule
   ],
-  bootstrap: [BootstrapComponent],
+  bootstrap: [BootstrapComponent]
 })
 export class AppModule {
   constructor(private appState: AppStateService, private router: Router) {
