@@ -78,15 +78,7 @@ jobs:
           name: node-red-ui-${{ env.C8Y_VERSION }}-${{ github.event.number }}-${{ github.run_id }}
           if-no-files-found: error
           retention-days: 5
-          path: frontend/dist/apps/node-red-ui/
-
-      - name: Upload Frontend Artifact (microfrontend)
-        uses: actions/upload-artifact@v2
-        with:
-          name: node-red-ui-plugins-${{ env.C8Y_VERSION }}-${{ github.event.number }}-${{ github.run_id }}
-          if-no-files-found: error
-          retention-days: 5
-          path: frontend/dist/apps/node-red-ui-plugins/
+          path: frontend/dist/apps/sag-ps-iot-pkg-node-red-ui/
 
       - name: 🚧  Build Backend
         run: |
@@ -107,14 +99,8 @@ jobs:
       - name: 🎁 Zip Frontend
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         run: |
-          cd frontend/dist/apps/node-red-ui
+          cd frontend/dist/apps/sag-ps-iot-pkg-node-red-ui
           zip -r -q ../../../node-red-ui.zip *
-
-      - name: 🎁 Zip Frontend (microfrontend)
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-        run: |
-          cd frontend/dist/apps/node-red-ui-plugins
-          zip -r -q ../../../node-red-ui-plugins.zip *
 
       - name: 🎁 Zip Backend
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
@@ -144,18 +130,6 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: ./frontend/node-red-ui.zip
           asset_name: node-red-ui-${{ env.C8Y_VERSION }}-${{ env.RELEASE_VERSION }}.zip
-          asset_content_type: application/zip
-
-      - name: Upload Release Asset Frontend (microfrontend)
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-        id: upload-release-asset-frontend-mf 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./frontend/node-red-ui-plugins.zip
-          asset_name: node-red-ui-plugins-${{ env.C8Y_VERSION }}-${{ env.RELEASE_VERSION }}.zip
           asset_content_type: application/zip
 
       - name: Upload Release Asset Backend

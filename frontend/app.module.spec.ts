@@ -1,5 +1,3 @@
-import { TestBed } from '@angular/core/testing';
-
 describe('Example test', () => {
   /*let testComponent;
 
