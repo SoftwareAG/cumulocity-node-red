@@ -2,7 +2,7 @@
 
 This repository contains the required parts to run Node-RED within a Cumulocity tenant.
 
-The repository is splitted into two parts ([backend](backend/README.md) and [frontend](frontend/README.md)).
+The repository is splitted into two parts ([backend](backend/README.md) and [frontend](frontend/README)).
 The backend folder contains all the required bits to run Node-RED as a microservice within Cumulocity.
 The frontend folder contains an optional [Cumulocity WebSDK](https://cumulocity.com/guides/web/angular/) based angular app, which has been created to serve the Node-RED frontend (hosted in the microservice) within an iframe.
 

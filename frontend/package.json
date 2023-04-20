@@ -82,7 +82,11 @@
       "icon": {
         "url": "url(/apps/sag-ps-iot-pkg-node-red-ui/assets/app-icon.png)"
       },
-      "copy": [{ "from": "assets", "to": "assets" }]
+      "copy": [
+        { "from": "assets", "to": "assets" },
+        { "from": "../images", "to": "images" },
+        { "from": "../README.md", "to": "README.md" }
+      ]
     },
     "cli": {}
   },
