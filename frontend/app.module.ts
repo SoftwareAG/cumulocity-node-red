@@ -16,7 +16,7 @@ import { NodeRedDashboardModule } from '@modules/node-red-dashboard/node-red-das
         pathMatch: 'full',
         redirectTo: 'node-red/admin'
       }
-    ], { enableTracing: false, useHash: true }),
+    ], { enableTracing: false, useHash: true, initialNavigation: 'disabled' }),
     CoreModule.forRoot(),
     NodeRedAdminModule,
     NodeRedDashboardModule
