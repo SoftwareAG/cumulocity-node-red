@@ -42,7 +42,7 @@
     "@ngx-translate/core": "14.0.0",
     "rxjs": "~6.6.3",
     "zone.js": "~0.11.7",
-    "@c8y/style": "1016.0.214"
+    "@c8y/style": "1016.0.258"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "14.0.6",
