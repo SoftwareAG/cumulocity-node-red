@@ -37,7 +37,7 @@
     "@angular/platform-browser-dynamic": "14.0.6",
     "@angular/router": "14.0.6",
     "@angular/upgrade": "14.0.6",
-    "@c8y/client": "1016.0.214",
+    "@c8y/client": "1016.0.276",
     "@c8y/ngx-components": "1016.0.214",
     "@ngx-translate/core": "14.0.0",
     "rxjs": "~6.6.3",
