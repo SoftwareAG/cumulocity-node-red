@@ -1,6 +1,6 @@
 {
   "name": "node-red-ui",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Node-RED integration into Cumulocity. With the Node-RED instance running as a microservice inside of Cumulocity.",
   "scripts": {
     "start": "c8ycli server",
