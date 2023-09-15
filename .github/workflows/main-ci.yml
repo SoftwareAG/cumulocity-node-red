@@ -118,7 +118,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ env.RELEASE_VERSION }} based on ${{ env.C8Y_VERSION }}
           draft: false
-          prerelease: true
+          prerelease: false
 
       - name: Upload Release Asset Frontend
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
