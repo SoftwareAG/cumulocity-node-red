@@ -9,4 +9,4 @@ RUN cd /data && npm init -y
 RUN cd /data && npm install ./node-red-contrib-c8y-client
 RUN cd /data && npm install ./node-red-c8y-storage-plugin
 EXPOSE 80/tcp
-ENTRYPOINT ["whoami", "&&", "npm", "start", "--cache", "/data/.npm", "--", "--userDir", "/data"]
+ENTRYPOINT ["npm", "start", "--cache", "/data/.npm", "--", "--userDir", "/data"]
