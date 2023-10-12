@@ -11,15 +11,16 @@ updates:
       interval: "weekly"
     assignees:
       - "reey"
-    allow:
-      - dependency-type: "direct"
-        dependency-name: "@c8y*"
     labels:
       - "npm"
       - "dependencies"
       - "c8y"
     reviewers:
       - "reey"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+    groups:
+      web-sdk:
+        patterns:
+          - "@c8y/*"
+        update-types:
+          - "minor"
+          - "patch"
