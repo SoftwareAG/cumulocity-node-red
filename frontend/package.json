@@ -31,7 +31,7 @@
     "@angular/cdk": "14.1.2",
     "@angular/common": "14.0.6",
     "@angular/compiler": "14.0.6",
-    "@angular/core": "14.0.6",
+    "@angular/core": "15.2.10",
     "@angular/forms": "14.0.6",
     "@angular/platform-browser": "14.0.6",
     "@angular/platform-browser-dynamic": "14.0.6",
