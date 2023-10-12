@@ -11,6 +11,9 @@ updates:
       interval: "weekly"
     assignees:
       - "reey"
+    allow:
+      - dependency-type: "direct"
+        dependency-name: "@c8y*"
     labels:
       - "npm"
       - "dependencies"
