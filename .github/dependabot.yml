@@ -25,5 +25,5 @@ updates:
         patterns:
           - "@c8y/*"
         update-types:
-          - "minor"
+#          - "minor"
           - "patch"
