@@ -1,4 +1,4 @@
-FROM nodered/node-red:3.1.0-18-minimal
+FROM nodered/node-red:3.1.3-18-minimal
 USER root
 RUN chown -R root:root /data/
 RUN cd /data && npm install @c8y/client@1018.0.143 && npm install node-red-dashboard@3.6.0
