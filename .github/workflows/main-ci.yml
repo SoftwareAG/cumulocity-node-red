@@ -42,7 +42,7 @@ jobs:
           yarn build:ui
 
       - name: Upload Frontend Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: node-red-ui-${{ github.event.number }}-${{ github.run_id }}
           if-no-files-found: error
@@ -55,7 +55,7 @@ jobs:
           docker save node-red-ms -o image.tar
 
       - name: Upload Backend Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: node-red-${{ github.event.number }}-${{ github.run_id }}
           if-no-files-found: error
