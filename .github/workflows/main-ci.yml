@@ -24,7 +24,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Mark backend version as SNAPSHOT
-        if: github.event_name != 'push' || !startsWith(github.ref, 'refs/tags/v')
         run: |
           sed -i '/\"version\"/s/\"\,/\-SNAPSHOT\"\,/g' cumulocity.json
 
@@ -45,7 +44,7 @@ jobs:
       - name: Upload Frontend Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: node-red-ui-${{ env.C8Y_VERSION }}-${{ github.event.number }}-${{ github.run_id }}
+          name: node-red-ui-${{ github.event.number }}-${{ github.run_id }}
           if-no-files-found: error
           retention-days: 5
           path: cumulocity-node-red-ui/dist/sag-ps-iot-pkg-node-red-ui/
@@ -58,7 +57,7 @@ jobs:
       - name: Upload Backend Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: node-red-${{ env.C8Y_VERSION }}-${{ github.event.number }}-${{ github.run_id }}
+          name: node-red-${{ github.event.number }}-${{ github.run_id }}
           if-no-files-found: error
           retention-days: 5
           path: |

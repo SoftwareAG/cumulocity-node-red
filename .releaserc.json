@@ -30,20 +30,27 @@
       "@semantic-release/npm",
       {
         "npmPublish": false,
-        "pkgRoot": "frontend"
+        "pkgRoot": "cumulocity-node-red-ui"
       }
     ],
     [
       "@semantic-release/npm",
       {
         "npmPublish": false,
-        "pkgRoot": "backend"
+        "pkgRoot": "node-red-contrib-c8y-client"
+      }
+    ],
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false,
+        "pkgRoot": "node-red-c8y-storage-plugin"
       }
     ],
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "cat backend/cumulocity.json | jq --arg version \"${nextRelease.version}\" '.version = $version' > backend/.tmp && mv backend/.tmp backend/cumulocity.json"
+        "prepareCmd": "cat cumulocity.json | jq --arg version \"${nextRelease.version}\" '.version = $version' > .tmp && mv .tmp cumulocity.json"
       }
     ],
     [
@@ -53,7 +60,7 @@
           "CHANGELOG.md",
           "package.json",
           "*/package.json",
-          "*/cumulocity.json"
+          "cumulocity.json"
         ],
         "message": "ci(release): ${nextRelease.version}\n\n${nextRelease.notes}"
       }
@@ -73,7 +80,7 @@
     [
       "@semantic-release/github",
       {
-        "assets": ["cloud-http-proxy-ui.zip", "cloud-http-proxy.zip"]
+        "assets": ["cumulocity-node-red-ui.zip.zip", "node-red.zip"]
       }
     ]
   ],

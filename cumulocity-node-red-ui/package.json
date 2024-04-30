@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:release": "yarn build && cp dist/cumulocity-node-red-ui.zip ../",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
