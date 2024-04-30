@@ -47,7 +47,7 @@ jobs:
           name: node-red-ui-${{ github.event.number }}-${{ github.run_id }}
           if-no-files-found: error
           retention-days: 5
-          path: cumulocity-node-red-ui/dist/sag-ps-iot-pkg-node-red-ui/
+          path: cumulocity-node-red-ui/dist/cumulocity-node-red-ui/
 
       - name: 🚧  Build Backend
         run: |
