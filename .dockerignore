@@ -1,0 +1,20 @@
+# Ignore everything
+*
+
+# Allow files and directories
+!/backend
+!/package.json
+!/node-red-c8y-storage-plugin
+!/node-red-contrib-c8y-client
+!/yarn.lock
+!/settings.js
+!/index.js
+
+# Ignore unnecessary files inside allowed directories
+# This should go after the allowed directories
+**/node_modules
+**/*.zip
+**/*.tar
+**/.env
+**/dist
+**/lib

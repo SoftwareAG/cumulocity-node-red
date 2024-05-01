@@ -1,0 +1,88 @@
+{
+  "branches": ["main"],
+  "tagFormat": "v${version}",
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "angular",
+        "releaseRules": [
+          { "type": "test", "scope": "fix", "release": "patch" },
+          { "type": "ci", "scope": "fix", "release": "patch" }
+        ]
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "angular"
+      }
+    ],
+    "@semantic-release/changelog",
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false,
+        "pkgRoot": "."
+      }
+    ],
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false,
+        "pkgRoot": "cumulocity-node-red-ui"
+      }
+    ],
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false,
+        "pkgRoot": "node-red-contrib-c8y-client"
+      }
+    ],
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false,
+        "pkgRoot": "node-red-c8y-storage-plugin"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "cat cumulocity.json | jq --arg version \"${nextRelease.version}\" '.version = $version' > .tmp && mv .tmp cumulocity.json"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "CHANGELOG.md",
+          "package.json",
+          "*/package.json",
+          "cumulocity.json"
+        ],
+        "message": "ci(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "yarn install --frozen-lockfile --immutable --non-interactive --prefer-offline"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "yarn run build:release"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": ["cumulocity-node-red-ui.zip.zip", "node-red.zip"]
+      }
+    ]
+  ],
+  "preset": "angular"
+}

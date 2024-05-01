@@ -1,0 +1,30 @@
+{
+  "name": "node-red-contrib-c8y-client",
+  "version": "0.0.1",
+  "description": "c8y client for Node-RED",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node-red",
+    "c8y"
+  ],
+  "node-red": {
+    "nodes": {
+      "call-endpoint": "src/nodes/call-endpoint/call-endpoint.js",
+      "realtime-alarms": "src/nodes/realtime-alarms/realtime-alarms.js",
+      "realtime-device": "src/nodes/realtime-device/realtime-device.js",
+      "realtime-events": "src/nodes/realtime-events/realtime-events.js",
+      "realtime-measurements": "src/nodes/realtime-measurements/realtime-measurements.js",
+      "realtime-operations": "src/nodes/realtime-operations/realtime-operations.js",
+      "c8y-http-auth": "src/nodes/c8y-http-auth/c8y-http-auth.js",
+      "c8y-check-roles": "src/nodes/c8y-check-roles/c8y-check-roles.js"
+    }
+  },
+  "dependencies": {
+    "@c8y/client": "1019.21.1"
+  },
+  "author": "Tristan Bastian",
+  "license": "Apache-2.0"
+}

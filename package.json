@@ -1,0 +1,34 @@
+{
+  "name": "cumulocity-node-red",
+  "private": true,
+  "version": "2.1.2",
+  "author": "Tristan Bastian",
+  "description": "Node-RED integration into Cumulocity. With the Node-RED instance running as a microservice inside of Cumulocity.",
+  "scripts": {
+    "build:release": "yarn build:docker && yarn workspace cumulocity-node-red-ui build:release",
+    "build:docker": "docker build --target prod -t node-red-ms . && docker save node-red-ms -o image.tar && zip ./node-red cumulocity.json image.tar",
+    "build": "yarn workspace node-red-c8y-storage-plugin build",
+    "build:ui": "yarn workspace cumulocity-node-red-ui build",
+    "start": "node index.js --userDir ./",
+    "dev": "yarn build && yarn start"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/SoftwareAG/cumulocity-node-red/issues"
+  },
+  "homepage": "https://github.com/SoftwareAG/cumulocity-node-red#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoftwareAG/cumulocity-node-red.git"
+  },
+  "workspaces": [
+    "node-red-c8y-storage-plugin",
+    "node-red-contrib-c8y-client",
+    "cumulocity-node-red-ui"
+  ],
+  "dependencies": {
+    "dotenv": "16.4.5",
+    "node-red": "3.1.9",
+    "node-red-dashboard": "~3.6.0"
+  }
+}

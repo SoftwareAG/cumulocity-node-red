@@ -1,0 +1,41 @@
+name: Semantic-Release
+on:
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: ${{ '18' }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Set release tag
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      initial-version: ${{ steps.save-initial-version.outputs.version }}
+      version: ${{ steps.save-version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Dependencies
+        run: |
+          npm i -g @semantic-release/changelog@^6.0.3 @semantic-release/exec@^6.0.3 @semantic-release/git@^10.0.1 semantic-release@^20.1.0
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_URL: ${{ github.server_url }}
+          HUSKY: 0
+        run: semantic-release

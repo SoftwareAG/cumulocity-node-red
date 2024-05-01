@@ -6,18 +6,14 @@
 version: 2
 updates:
   - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/frontend" # Location of package manifests
+    directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
     assignees:
       - "reey"
-    allow:
-      - dependency-type: "direct"
-        dependency-name: "@c8y*"
     labels:
-      - "npm"
+      - "yarn"
       - "dependencies"
-      - "c8y"
     reviewers:
       - "reey"
     groups:
@@ -25,5 +21,14 @@ updates:
         patterns:
           - "@c8y/*"
         update-types:
-#          - "minor"
+          - "minor"
           - "patch"
+      angular:
+        patterns:
+          - "@angular/*"
+          - "@angular-devkit/*"
+          - "@schematics/angular"
+        update-types:
+          - "minor"
+          - "patch"
+
