@@ -80,7 +80,7 @@
     [
       "@semantic-release/github",
       {
-        "assets": ["cumulocity-node-red-ui.zip.zip", "node-red.zip"]
+        "assets": ["cumulocity-node-red-ui.zip", "node-red.zip"]
       }
     ]
   ],
