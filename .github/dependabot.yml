@@ -44,5 +44,6 @@ updates:
     reviewers:
       - "reey"
     ignore:
-      - update-types:
+      - dependency-name: "*"
+        update-types:
           - "version-update:semver-major"
