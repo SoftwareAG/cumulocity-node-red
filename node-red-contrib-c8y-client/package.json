@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-c8y-client",
-  "version": "0.0.1",
+  "version": "2.2.0",
   "description": "c8y client for Node-RED",
   "main": "index.js",
   "scripts": {

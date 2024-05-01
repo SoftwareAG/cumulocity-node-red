@@ -1,6 +1,6 @@
 {
   "name": "node-red-c8y-storage-plugin",
-  "version": "0.0.1",
+  "version": "2.2.0",
   "description": "Node-RED c8y Storage Plugin",
   "main": "lib/index.js",
   "scripts": {
