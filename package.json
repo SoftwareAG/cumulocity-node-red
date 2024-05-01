@@ -1,7 +1,7 @@
 {
   "name": "cumulocity-node-red",
   "private": true,
-  "version": "2.2.0",
+  "version": "2.2.1",
   "author": "Tristan Bastian",
   "description": "Node-RED integration into Cumulocity. With the Node-RED instance running as a microservice inside of Cumulocity.",
   "scripts": {
