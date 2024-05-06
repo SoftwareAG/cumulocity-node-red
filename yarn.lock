@@ -6625,15 +6625,15 @@ node-red-admin@^3.1.3:
   optionalDependencies:
     bcrypt "5.1.1"
 
-node-red-dashboard@~3.6.0:
-  version "3.6.0"
-  resolved "https://registry.npmjs.org/node-red-dashboard/-/node-red-dashboard-3.6.0.tgz"
-  integrity sha512-5jA22x4If8A9sSOlROlyfHcos2D5CfavfgV8xaidDokdtAqdB9QkEuPtcnA17MnVoK5cZijoJJFi7xPasMCuEg==
+node-red-dashboard@~3.6.5:
+  version "3.6.5"
+  resolved "https://registry.yarnpkg.com/node-red-dashboard/-/node-red-dashboard-3.6.5.tgz#d1351a0486b7192cfdf5fb7b141639afccbd30f8"
+  integrity sha512-zoTVq13lh3OXzxBdFJByxaiijHLOCdkVfR5eCKXNm0RNFfGFyaqPQ06OoeLPXTmhU6KU/VDINxCKJUtdChg9Iw==
   dependencies:
     compression "^1.7.4"
     gridstack "^0.6.4"
     serve-static "^1.15.0"
-    socket.io "^4.7.2"
+    socket.io "^4.7.4"
 
 node-red@3.1.9:
   version "3.1.9"
@@ -8148,7 +8148,7 @@ socket.io-parser@~4.2.4:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.1"
 
-socket.io@^4.7.2:
+socket.io@^4.7.2, socket.io@^4.7.4:
   version "4.7.5"
   resolved "https://registry.npmjs.org/socket.io/-/socket.io-4.7.5.tgz"
   integrity sha512-DmeAkF6cwM9jSfmp6Dr/5/mfMwb5Z5qRrSXLpo3Fq5SqyU8CMF15jIN4ZhfSwu35ksM1qmHZDQ/DK5XTccSTvA==
