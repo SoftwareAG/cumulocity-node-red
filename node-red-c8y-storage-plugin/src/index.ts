@@ -51,7 +51,7 @@ export function saveCredentials(credentials: any) {
 }
 
 export function getSettings() {
-    return c8yHandler.getAsOne(this.collectionNames.settings);
+    return c8yHandler.getAsOne(this.collectionNames.settings, {});
 }
 
 export function saveSettings(newSettings: any) {
