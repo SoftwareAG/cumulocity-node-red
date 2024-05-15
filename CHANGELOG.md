@@ -1,3 +1,10 @@
+## [2.2.2](https://github.com/SoftwareAG/cumulocity-node-red/compare/v2.2.1...v2.2.2) (2024-05-15)
+
+
+### Bug Fixes
+
+* **microservice:** resolve issue if microservice is installed for the first time on tenant ([c157e27](https://github.com/SoftwareAG/cumulocity-node-red/commit/c157e277f8b1d41c6b3557671183781412ec4501))
+
 ## [2.2.1](https://github.com/SoftwareAG/cumulocity-node-red/compare/v2.2.0...v2.2.1) (2024-05-01)
 
 
