@@ -1,3 +1,10 @@
+## [2.2.4](https://github.com/SoftwareAG/cumulocity-node-red/compare/v2.2.3...v2.2.4) (2024-05-24)
+
+
+### Bug Fixes
+
+* set iframe src correctly ([f4b10cf](https://github.com/SoftwareAG/cumulocity-node-red/commit/f4b10cf41f14616efa6b6017b2aa995b62b52f95))
+
 ## [2.2.3](https://github.com/SoftwareAG/cumulocity-node-red/compare/v2.2.2...v2.2.3) (2024-05-24)
 
 
