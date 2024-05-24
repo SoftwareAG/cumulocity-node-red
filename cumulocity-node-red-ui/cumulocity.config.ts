@@ -1,13 +1,14 @@
 import { ConfigurationOptions } from '@c8y/devkit/dist/options';
 import * as config from '../package.json';
 
-const { author, description, version } = config;
+const { author, description, version, license } = config;
 
 export default {
   runTime: {
     author,
     description,
     version,
+    license,
     name: "Node-RED",
     contextPath: "sag-ps-iot-pkg-node-red-ui",
     key: "sag-ps-iot-pkg-node-red-ui-application-key",
