@@ -26,7 +26,7 @@
     "@c8y/ngx-components": "1019.23.8",
     "@c8y/style": "1019.23.8",
     "@c8y/websdk": "1019.23.8",
-    "ngx-bootstrap": "11.0.2",
+    "ngx-bootstrap": "12.0.0",
     "rxjs": "^7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
