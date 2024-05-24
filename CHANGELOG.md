@@ -1,3 +1,10 @@
+## [2.2.3](https://github.com/SoftwareAG/cumulocity-node-red/compare/v2.2.2...v2.2.3) (2024-05-24)
+
+
+### Bug Fixes
+
+* add missing license into UI build ([2d82e20](https://github.com/SoftwareAG/cumulocity-node-red/commit/2d82e20f3aa04dec6c6269cd21e262924719ee91))
+
 ## [2.2.2](https://github.com/SoftwareAG/cumulocity-node-red/compare/v2.2.1...v2.2.2) (2024-05-15)
 
 
