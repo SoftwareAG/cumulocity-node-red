@@ -37,7 +37,7 @@
     "@angular/compiler-cli": "^16.2.0",
     "@c8y/widget-plugin": "1019.23.8",
     "@types/jasmine": "~4.3.0",
-    "jasmine-core": "~4.6.0",
+    "jasmine-core": "~5.1.2",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
