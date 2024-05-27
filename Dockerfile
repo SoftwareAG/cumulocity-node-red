@@ -1,4 +1,4 @@
-FROM node:18.20.2-alpine As deps
+FROM node:18.20.3-alpine As deps
 WORKDIR /usr/src/app
 COPY --chown=root:root ./yarn.lock ./
 COPY --chown=root:root ./package.json ./
@@ -10,7 +10,7 @@ RUN yarn install --frozen-lockfile --immutable --non-interactive --prefer-offlin
 
 USER root
 
-FROM node:18.20.2-alpine As build
+FROM node:18.20.3-alpine As build
 WORKDIR /usr/src/app
 
 COPY --chown=root:root ./ ./
@@ -22,7 +22,7 @@ RUN yarn run build
 
 USER root
 
-FROM node:18.20.2-alpine As prodDeps
+FROM node:18.20.3-alpine As prodDeps
 WORKDIR /usr/src/app
 
 COPY --chown=root:root ./yarn.lock ./
@@ -37,7 +37,7 @@ RUN yarn install --frozen-lockfile --immutable --non-interactive --prefer-offlin
 
 USER root
 
-FROM node:18.20.2-alpine As prod
+FROM node:18.20.3-alpine As prod
 WORKDIR /usr/src/app
 
 COPY --chown=root:root --from=prodDeps /usr/src/app/ ./
