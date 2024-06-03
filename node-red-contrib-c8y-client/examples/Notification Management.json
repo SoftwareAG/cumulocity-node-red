@@ -1,0 +1,346 @@
+[
+    {
+        "id": "f4700a0ce62697cd",
+        "type": "tab",
+        "label": "Notification Management",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "813e21371b2ff5a9",
+        "type": "inject",
+        "z": "f4700a0ce62697cd",
+        "name": "Unsubscribe sub",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 140,
+        "wires": [
+            [
+                "24d72c0540541dc5"
+            ]
+        ]
+    },
+    {
+        "id": "f1b1f12d6f195ed7",
+        "type": "call-endpoint",
+        "z": "f4700a0ce62697cd",
+        "name": "unsubscribe",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "method": "POST",
+        "methodType": "Select",
+        "endpoint": "url",
+        "endpointType": "msg",
+        "body": "none",
+        "bodyType": "msg",
+        "x": 370,
+        "y": 200,
+        "wires": [
+            [
+                "9784c48fd136d43c"
+            ]
+        ]
+    },
+    {
+        "id": "9784c48fd136d43c",
+        "type": "debug",
+        "z": "f4700a0ce62697cd",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "24d72c0540541dc5",
+        "type": "call-endpoint",
+        "z": "f4700a0ce62697cd",
+        "name": "Get Token",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "method": "POST",
+        "methodType": "Select",
+        "endpoint": "notification2/token",
+        "endpointType": "str",
+        "body": "{\"subscriber\":\"sub\",\"subscription\":\"test\",\"expiresInMinutes\":100000}",
+        "bodyType": "json",
+        "x": 120,
+        "y": 200,
+        "wires": [
+            [
+                "8e42aed2c8109f2b"
+            ]
+        ]
+    },
+    {
+        "id": "8e42aed2c8109f2b",
+        "type": "function",
+        "z": "f4700a0ce62697cd",
+        "name": "Create URL",
+        "func": "msg.url = \"/notification2/unsubscribe?token=\"+msg.payload.token;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 140,
+        "wires": [
+            [
+                "f1b1f12d6f195ed7"
+            ]
+        ]
+    },
+    {
+        "id": "e282f83ddb740cbe",
+        "type": "inject",
+        "z": "f4700a0ce62697cd",
+        "name": "Delete  Test Subscription Filters",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "subscription",
+                "v": "test",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "40f14b957d87c73d"
+            ]
+        ]
+    },
+    {
+        "id": "40f14b957d87c73d",
+        "type": "call-endpoint",
+        "z": "f4700a0ce62697cd",
+        "name": "",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "method": "GET",
+        "methodType": "Select",
+        "endpoint": "/notification2/subscriptions",
+        "endpointType": "str",
+        "body": "test",
+        "bodyType": "msg",
+        "x": 450,
+        "y": 300,
+        "wires": [
+            [
+                "94661687e359fbd3"
+            ]
+        ]
+    },
+    {
+        "id": "9e3e442e0381a54b",
+        "type": "debug",
+        "z": "f4700a0ce62697cd",
+        "name": "Status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "status",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "2229ecb2511a7b13",
+        "type": "split",
+        "z": "f4700a0ce62697cd",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 310,
+        "y": 360,
+        "wires": [
+            [
+                "9ceac736c962178b"
+            ]
+        ]
+    },
+    {
+        "id": "94661687e359fbd3",
+        "type": "change",
+        "z": "f4700a0ce62697cd",
+        "name": "Extract Sub Array",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.subscriptions",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 130,
+        "y": 360,
+        "wires": [
+            [
+                "2229ecb2511a7b13"
+            ]
+        ]
+    },
+    {
+        "id": "6db6860d3e60aa2e",
+        "type": "call-endpoint",
+        "z": "f4700a0ce62697cd",
+        "name": "Delete Subscription",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "method": "DELETE",
+        "methodType": "Select",
+        "endpoint": "endpoint",
+        "endpointType": "msg",
+        "body": "",
+        "bodyType": "json",
+        "x": 350,
+        "y": 440,
+        "wires": [
+            [
+                "9e3e442e0381a54b"
+            ]
+        ]
+    },
+    {
+        "id": "e62b538541dbd614",
+        "type": "function",
+        "z": "f4700a0ce62697cd",
+        "name": "Create Endpoint",
+        "func": "msg.endpoint = \"/notification2/subscriptions/\" + msg.payload.id;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 140,
+        "y": 440,
+        "wires": [
+            [
+                "6db6860d3e60aa2e",
+                "0341863ac5ef011d"
+            ]
+        ]
+    },
+    {
+        "id": "0341863ac5ef011d",
+        "type": "debug",
+        "z": "f4700a0ce62697cd",
+        "name": "Endpoint",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "endpoint",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "9ceac736c962178b",
+        "type": "switch",
+        "z": "f4700a0ce62697cd",
+        "name": "",
+        "property": "subscription",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "payload.subscription",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 380,
+        "wires": [
+            [
+                "e62b538541dbd614"
+            ]
+        ]
+    },
+    {
+        "id": "714a302290ffe101",
+        "type": "comment",
+        "z": "f4700a0ce62697cd",
+        "name": "After you have disabled the notification flow that closes the Websocket connection you can destroy the queue like that",
+        "info": "",
+        "x": 420,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "0a728d8e0ab13e82",
+        "type": "comment",
+        "z": "f4700a0ce62697cd",
+        "name": "To delete all subscription filters related to a specific subscription.",
+        "info": "",
+        "x": 250,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e0c6628266ed80c4",
+        "type": "c8yconfig",
+        "c8ytenant": "t15264971",
+        "c8yurl": "https://mstoffel.eu-latest.cumulocity.com",
+        "c8yapplicationkey": ""
+    }
+]

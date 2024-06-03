@@ -62,7 +62,7 @@
     },
     {
         "id": "72f229ee.d7666",
-        "type": "c8y-http-auth",
+        "type": "http-auth",
         "z": "fb510c6f.29ea58",
         "name": "",
         "x": 230,
@@ -103,7 +103,7 @@
     },
     {
         "id": "ff18ba5d.87403",
-        "type": "c8y-check-roles",
+        "type": "check-roles",
         "z": "fb510c6f.29ea58",
         "name": "",
         "roles": "[\"ROLE_INVENTORY_READ\"]",
