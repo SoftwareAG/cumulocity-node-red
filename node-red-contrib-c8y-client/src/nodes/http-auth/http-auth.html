@@ -1,0 +1,51 @@
+<script type="text/javascript">
+    RED.nodes.registerType('http-auth',{
+        category: 'Cumulocity',
+        color: '#45c4ba',
+        defaults: {
+            name: {value:""},
+            useenv: {value: false},
+            c8yconfig: {
+                value:"", 
+                type:"c8yconfig", 
+                validate: function(v){
+                    return (this.useenv || v) 
+                }
+            },
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-key",
+        label: function() {
+            return this.name||"http-auth";
+        },
+        oneditprepare: function () {
+            $('#node-input-useenv').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#c8yconfig-row').hide();
+                } else {
+                    $('#c8yconfig-row').show();
+                }
+            });
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="http-auth">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-useenv"><i class="fa fa-tag"></i> Use ENV</label>
+        <input type="checkbox" id="node-input-useenv"/>
+    </div>
+    <div class="form-row" id="c8yconfig-row">
+        <label for="node-input-c8yconfig"><i class="fa fa-tag"></i> C8y config</label>
+        <input type="text" id="node-input-c8yconfig" placeholder="c8yconfig">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="http-auth">
+    <p>A node that adds tenant credentials to the headers attribute of the received message and forwards it. Place this node in front of an http-request node if you want to access the c8y tenant using microservice credentials.</p>
+</script>
