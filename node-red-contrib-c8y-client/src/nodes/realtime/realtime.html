@@ -1,0 +1,69 @@
+<script type="text/javascript">
+    RED.nodes.registerType('realtime',{
+        category: 'Cumulocity',
+        color: '#45c4ba',
+        defaults: {
+            name: {value:""},
+            active: {value: true},
+            deviceId: {value:"*"},
+            c8yconfig: {value:"", type:"c8yconfig"},
+            useenv: {value: false},
+            api: {value: ""}
+        },
+        inputs:0,
+        outputs:1,
+        icon: "font-awesome/fa-commenting-o",
+        label: function() {
+            return this.name ||"realtime-" + this.api;
+        },
+        button: {
+            toggle: "active",
+            onclick: function() {
+                var node = this;
+                console.log("ClICK " ,node.active);
+                $.ajax({
+                    url: 'realtime/' + node.id +'/'+(node.active?"enable":"disable"),
+                    cache: false,
+                    dataType: 'json',
+                    method: 'GET',
+                    success: function (data) {
+                        console.log("Success: " + JSON.stringify(data));
+                    }
+		        });
+            }
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="realtime">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-useenv"><i class="fa fa-tag"></i> Use ENV</label>
+        <input type="checkbox" id="node-input-useenv"/>
+    </div>
+    <div class="form-row" id="c8yconfig-row">
+        <label for="node-input-c8yconfig"><i class="fa fa-tag"></i> C8y config</label>
+        <input type="text" id="node-input-c8yconfig" placeholder="c8yconfig">
+    </div>
+    <div class="form-row">
+        <label for="node-input-api"><i class="fa fa-tag"></i> API</label>
+        <select id="node-input-api">
+            <option>alarms</option>
+            <option>measurements</option>
+            <option>events</option>
+            <option>operations</option>
+            <option>inventory</option>
+        </select>
+	</div>
+    <div class="form-row">
+        <label for="node-input-deviceId"><i class="fa fa-tag"></i> DeviceId</label>
+        <input type="text" id="node-input-deviceId" placeholder="deviceId">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="realtime">
+    <p>A node that subscribes for realtime updates of Cumulocity events. This can be either done by specifying a particular deviceId or you subscribe for all devices by using a wildcard as a deviceId. !DEPRECATED! Please use the notification node instead to get reliable messages. </p>
+</script>
