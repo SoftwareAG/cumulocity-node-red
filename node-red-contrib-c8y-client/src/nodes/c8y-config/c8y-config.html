@@ -1,0 +1,54 @@
+<script type="text/javascript">
+    RED.nodes.registerType('c8yconfig',{
+        category: 'config',
+        color: '#45c4ba',
+        defaults: {
+            c8ytenant: {
+                value:"",
+                required: true
+            },
+            c8yurl: {
+                value:"",
+                required: true
+            },
+            c8yapplicationkey: {
+                value:"",
+                required: false
+            },
+        },
+        credentials:{
+            c8yuser:	{ required: true, type:"text"},
+            c8ypassword:{ required: true, type:"password"},
+            },
+        label: function() {
+            return  this.c8yurl||"c8yconfig";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="c8yconfig">
+    <div class="form-row">
+        <label for="node-config-input-c8ytenant"><i class="fa fa-bookmark"></i> Tenant</label>
+        <input type="text" id="node-config-input-c8ytenant" placeholder="t38383894">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-c8yurl"><i class="fa fa-bookmark"></i> Url</label>
+        <input type="text" id="node-config-input-c8yurl" placeholder="https://mytenant.cumulocity.com">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-c8yapplicationkey"><i class="fa fa-bookmark"></i> Application Key</label>
+        <input type="text" id="node-config-input-c8yapplicationkey" placeholder="Node-Red">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-c8yuser"><i class="fa fa-bookmark"></i> User</label>
+        <input type="text" id="node-config-input-c8yuser" placeholder="herbert@aolcom">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-c8ypassword"><i class="fa fa-tag"></i> Password</label>
+        <input type="password" id="node-config-input-c8ypassword" placeholder="secret">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="c8yconfig">
+    <p>A node to configure a cumulocity connection.</p>
+</script>
