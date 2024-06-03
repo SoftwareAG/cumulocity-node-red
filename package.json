@@ -19,7 +19,7 @@
   "homepage": "https://github.com/SoftwareAG/cumulocity-node-red#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mstoffel-sag/cumulocity-node-red.git"
+    "url": "git+https://github.com/SoftwareAG/cumulocity-node-red.git"
   },
   "workspaces": [
     "node-red-c8y-storage-plugin",
