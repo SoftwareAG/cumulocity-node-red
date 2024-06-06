@@ -1,0 +1,228 @@
+<script type="text/javascript">
+  RED.nodes.registerType("notification", {
+    category: "Cumulocity",
+    color: "#45c4ba",
+    defaults: {
+      name: { value: "" },
+      c8yconfig: {
+        value: "",
+        type: "c8yconfig",
+        validate: function (v) {
+          return this.useenv || v;
+        },
+      },
+      useenv: { value: false },
+      subscription: { value: "", required: true },
+      subscriber: { value: "", required: true },
+      context: { value: "mo", required: true },
+      contextType: { value: "Select", required: true },
+      apis: { value: "", required: true },
+      apisType: { value: "Select", required: true },
+      typeFilter: { value: "", required: false },
+      fragmentsToCopy: { value: "", required: false },
+      nonPersistent: { value: false, required: true },
+      deviceIds: {
+        value: "",
+        required: true,
+        validate: RED.validators.typedInput("deviceIdsType"),
+      },
+      deviceIdsType: { value: "Select" },
+    },
+    inputs: 0,
+    icon: "envelope.svg",
+    outputs: 1,
+    label: function () {
+      return this.name || "notification-" + this.subscription;
+    },
+    oneditprepare: function () {
+      console.log("node.deviceIds: ", this.deviceIds);
+      var node = this;
+      $("#node-input-useenv").change(function () {
+        if ($(this).is(":checked")) {
+          $("#c8yconfig-row").hide();
+        } else {
+          $("#c8yconfig-row").show();
+        }
+      });
+
+      $("#node-input-context").typedInput({
+        default: "Select",
+        typeField: $("#node-input-contextType"),
+        types: [
+          {
+            value: "Select",
+            title: "Context",
+            multiple: false,
+            options: [
+              { value: "mo", label: "ManagedObjects" },
+              { value: "tenant", label: "Tenant" },
+            ],
+          },
+        ],
+      });
+      $("#node-input-apis").typedInput({
+        default: "Select",
+        typeField: $("#node-input-apisType"),
+        types: [
+          {
+            value: "Select",
+            title: "APIs",
+            multiple: true,
+            options: [
+              { value: "*", label: "All APIs" },
+              { value: "alarms", label: "Alarms" },
+              { value: "alarmsWithChildren", label: "AlarmsWithChildren" },
+              { value: "events", label: "Events" },
+              { value: "eventsWithChildren", label: "EventsWithChildren" },
+              { value: "measurements", label: "Measurements" },
+              { value: "managedobjects", label: "Managedobjects" },
+            ],
+            showLabel: true,
+          },
+        ],
+      });
+      function getDevices(devs) {
+        $("#node-input-deviceIds").typedInput({
+          default: "Select",
+          typeField: $("#node-input-deviceIdsType"),
+          types: [
+            "str",
+            {
+              value: "Select",
+              title: "Devices",
+              multiple: true,
+              options: devs,
+              showLabel: true,
+            },
+          ],
+        });
+      }
+      $.ajax({
+        url: "notification/" + node.id + "/getDevices",
+        cache: false,
+        dataType: "json",
+        method: "GET",
+        success: function (data) {
+          getDevices(data);
+        },
+        error: function (error) {
+          console.error("Error: ", error);
+        },
+      });
+    },
+  });
+</script>
+
+<script type="text/html" data-template-name="notification">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name" />
+  </div>
+  <div id="config-form">
+    <div class="form-row">
+      <label for="node-input-useenv"><i class="fa fa-tag"></i> Use ENV</label>
+      <input type="checkbox" id="node-input-useenv" />
+    </div>
+    <div class="form-row" id="c8yconfig-row">
+      <label for="node-input-c8yconfig"
+        ><i class="fa fa-tag"></i> C8y config</label
+      >
+      <input type="text" id="node-input-c8yconfig" placeholder="c8yconfig" />
+    </div>
+  </div>
+  <div class="form-row">
+    <label for="node-input-subscription"
+      ><i class="fa fa-tag"></i> Subscription</label
+    >
+    <input type="text" id="node-input-subscription" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-subscriber"
+      ><i class="fa fa-tag"></i> Subscriber</label
+    >
+    <input type="text" id="node-input-subscriber" placeholder="subscriber" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-nonPersistent"
+      ><i class="fa fa-tag"></i> nonPersistent</label
+    >
+    <input type="checkbox" id="node-input-nonPersistent" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-context"><i class="fa fa-tag"></i> Context</label>
+    <input type="text" id="node-input-context" placeholder="" />
+    <input type="hidden" id="node-input-contextType" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-apis"><i class="fa fa-tag"></i> APIs</label>
+    <input type="text" id="node-input-apis" placeholder="" />
+    <input type="hidden" id="node-input-apisType" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-deviceIds"><i class="fa fa-tag"></i> Devices</label>
+    <input type="text" id="node-input-deviceIds" placeholder="" />
+    <input type="hidden" id="node-input-deviceIdsType" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-typeFilter"
+      ><i class="fa fa-tag"></i> Type Filter</label
+    >
+    <input
+      type="text"
+      id="node-input-typeFilter"
+      placeholder="c8y_Temperature or c8y_Pressure"
+    />
+  </div>
+  <div class="form-row">
+    <label for="node-input-fragmentsToCopy"
+      ><i class="fa fa-tag"></i> Fragments To Copy</label
+    >
+    <input
+      type="text"
+      id="node-input-fragmentsToCopy"
+      placeholder="c8y_Temperature,c8y_Pressure"
+    />
+  </div>
+</script>
+
+<script type="text/markdown" data-help-name="notification">
+A node to subscribe to Cumulocity Notification 2.0 API.
+
+The node needs Cumulocity conection details (Tenant/Base URL)
+and credentials (Username and Password).
+Those can be obtained via a configuration (C8y Config Property) or through environment variables.
+Using evironment variables comes in handy if your running inside Cumulocity as a microservice. To use them check the Use ENV checkbox.
+
+### 🔥Configuration🔥
+
+To get and select devices a two step approach is necessarry.
+At first configure the Cumulocity connection (C8y Config) then deploy the flow.
+Open the node again and select the devices you get notifications from. Deploy again.
+Now you should get new notifications.
+
+### Inputs
+
+: Name (string) : If not set notification-${subscription}
+: Subscription (string Dropdown| string ) : Notification 2.0 Subscription name
+: Subscriber (string) : Arbitrary Subscriber Name.
+: nonPersistent (boolean) : Persistence of the subscription filter.
+: Context (string) : ManagedObjects or Tenant.
+: APIs (string) : Which APIs to subscribe to.
+: Devices (Dropdown | comma seperated strings) : Which Device to subscribe to.
+: TypeFilter (string odata expression) : Which Type to subscribe to.
+: Fragments to copy (comma seperated strings) : Which fragments to copy.
+
+### outputs
+
+: payload (JSON string) : Received Notification 2.0 Message `msg.payload`
+
+### What happens in the Background
+
+You configure Subscriber, Subscription including a SubscriptionFilter.
+In Context ManagedObject you can also select which devices you want notificaitions from.
+This will create as many Subscriptions using the same subscriber and subscription name as devices are selected.
+In Context Tenant no devices are neccessary hench the selection is ignored.
+After the subscriptionFilters are created a subscription is created by requesting a token using its name.
+Then the websocket tunnel is established. Notifications are deliverd.
+For more details have a look at [https://www.cumulocity.com/api/core/#tag/About-notifications-2.0](https://www.cumulocity.com/api/core/#tag/About-notifications-2.0)
+</script>

@@ -6,7 +6,7 @@
   "description": "Node-RED integration into Cumulocity. With the Node-RED instance running as a microservice inside of Cumulocity.",
   "scripts": {
     "build:release": "yarn build:docker && yarn workspace cumulocity-node-red-ui build:release",
-    "build:docker": "docker build --target prod -t node-red-ms . && docker save node-red-ms -o image.tar && zip ./node-red cumulocity.json image.tar",
+    "build:docker": "docker build --platform linux/amd64 --target prod -t node-red-ms . && docker save node-red-ms -o image.tar && zip ./node-red cumulocity.json image.tar",
     "build": "yarn workspace node-red-c8y-storage-plugin build",
     "build:ui": "yarn workspace cumulocity-node-red-ui build",
     "start": "node index.js --userDir ./",

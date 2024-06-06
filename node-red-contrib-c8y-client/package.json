@@ -8,23 +8,26 @@
   },
   "keywords": [
     "node-red",
-    "c8y"
+    "c8y",
+    "cumulocity"
   ],
   "node-red": {
+    "version": ">=2.0.0",
     "nodes": {
       "call-endpoint": "src/nodes/call-endpoint/call-endpoint.js",
-      "realtime-alarms": "src/nodes/realtime-alarms/realtime-alarms.js",
-      "realtime-device": "src/nodes/realtime-device/realtime-device.js",
-      "realtime-events": "src/nodes/realtime-events/realtime-events.js",
-      "realtime-measurements": "src/nodes/realtime-measurements/realtime-measurements.js",
-      "realtime-operations": "src/nodes/realtime-operations/realtime-operations.js",
-      "c8y-http-auth": "src/nodes/c8y-http-auth/c8y-http-auth.js",
-      "c8y-check-roles": "src/nodes/c8y-check-roles/c8y-check-roles.js"
+      "get-internal-id": "src/nodes/get-internal-id/get-internal-id.js",
+      "realtime": "src/nodes/realtime/realtime.js",
+      "notification": "src/nodes/notification/notification.js",
+      "c8yconfig": "src/nodes/c8y-config/c8y-config.js",
+      "http-auth": "src/nodes/http-auth/http-auth.js",
+      "check-roles": "src/nodes/check-roles/check-roles.js"
     }
   },
   "dependencies": {
-    "@c8y/client": "1019.23.8"
+    "@c8y/client": "1019.23.8",
+    "uuid": "^9.0.1",
+    "ws": "^8.17.0"
   },
-  "author": "Tristan Bastian",
+  "author": "Tristan Bastian,Marco Stoffel",
   "license": "Apache-2.0"
 }

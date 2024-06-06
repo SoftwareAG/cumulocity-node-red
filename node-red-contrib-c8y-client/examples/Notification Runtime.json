@@ -1,0 +1,68 @@
+[
+    {
+        "id": "877622e34d3123e8",
+        "type": "tab",
+        "label": "Notification Runtime",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a79c415c80f5ad95",
+        "type": "debug",
+        "z": "877622e34d3123e8",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "f3d81c6808cb92e8",
+        "type": "notification",
+        "z": "877622e34d3123e8",
+        "name": "",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "subscription": "test",
+        "subscriber": "sub",
+        "context": "mo",
+        "contextType": "Select",
+        "apis": "alarms,measurements",
+        "apisType": "Select",
+        "typeFilter": "",
+        "fragmentsToCopy": "",
+        "nonPersistent": false,
+        "deviceIds": "4459179912,5059545013",
+        "deviceIdsType": "Select",
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "a79c415c80f5ad95"
+            ]
+        ]
+    },
+    {
+        "id": "bdfc5eb63158aac1",
+        "type": "comment",
+        "z": "877622e34d3123e8",
+        "name": "After configuration of the notificaiton node you can implement the logic (here we just log the messags). To stop fetching notifications disable the flow.",
+        "info": "",
+        "x": 590,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "e0c6628266ed80c4",
+        "type": "c8yconfig",
+        "c8ytenant": "t15264971",
+        "c8yurl": "https://mstoffel.eu-latest.cumulocity.com"
+    }
+]

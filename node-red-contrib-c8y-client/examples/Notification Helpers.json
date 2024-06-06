@@ -1,0 +1,489 @@
+[
+    {
+        "id": "63512b6c4d716a70",
+        "type": "tab",
+        "label": "Notification Helpers",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c7ad883fdf120a3b",
+        "type": "call-endpoint",
+        "z": "63512b6c4d716a70",
+        "name": "",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "method": "GET",
+        "methodType": "Select",
+        "endpoint": "/notification2/subscriptions/",
+        "endpointType": "str",
+        "body": "{}",
+        "bodyType": "json",
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "5970ae323b94be72"
+            ]
+        ]
+    },
+    {
+        "id": "4edcc481069ec850",
+        "type": "inject",
+        "z": "63512b6c4d716a70",
+        "name": "Get all Subs",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 60,
+        "wires": [
+            [
+                "c7ad883fdf120a3b"
+            ]
+        ]
+    },
+    {
+        "id": "5970ae323b94be72",
+        "type": "debug",
+        "z": "63512b6c4d716a70",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "31eb055d3fbe28ca",
+        "type": "call-endpoint",
+        "z": "63512b6c4d716a70",
+        "name": "",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "method": "POST",
+        "methodType": "Select",
+        "endpoint": "/notification2/subscriptions/",
+        "endpointType": "str",
+        "body": "body",
+        "bodyType": "msg",
+        "x": 230,
+        "y": 260,
+        "wires": [
+            [
+                "199198b44118c657"
+            ]
+        ]
+    },
+    {
+        "id": "f551c2cf512916ba",
+        "type": "get-internal-id",
+        "z": "63512b6c4d716a70",
+        "name": "",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "externalid": "test1",
+        "externalidType": "str",
+        "externalidtype": "c8y_Serial",
+        "externalidtypeType": "str",
+        "createdevice": false,
+        "params": "",
+        "paramsType": "json",
+        "x": 520,
+        "y": 140,
+        "wires": [
+            [
+                "8724372574286d54"
+            ]
+        ]
+    },
+    {
+        "id": "eb686ca1e9329661",
+        "type": "inject",
+        "z": "63512b6c4d716a70",
+        "name": "Create Sub Filter manually",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 140,
+        "wires": [
+            [
+                "f551c2cf512916ba"
+            ]
+        ]
+    },
+    {
+        "id": "8724372574286d54",
+        "type": "function",
+        "z": "63512b6c4d716a70",
+        "name": "Subscription Body",
+        "func": "msg.body = {\n    \"source\": {\n        \"id\": msg.payload\n    },\n    \"context\": \"mo\",\n    \"subscription\": \"test\" + msg.payload,\n    \"subscriptionFilter\": {\n        \"apis\": [\n            \"*\"\n        ]\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "31eb055d3fbe28ca"
+            ]
+        ]
+    },
+    {
+        "id": "199198b44118c657",
+        "type": "debug",
+        "z": "63512b6c4d716a70",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "7477fbbca4f48af9",
+        "type": "inject",
+        "z": "63512b6c4d716a70",
+        "name": "Del Sub Filter by Source",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "bd03c123bf595354"
+            ]
+        ]
+    },
+    {
+        "id": "bd03c123bf595354",
+        "type": "get-internal-id",
+        "z": "63512b6c4d716a70",
+        "name": "",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "externalid": "test1",
+        "externalidType": "str",
+        "externalidtype": "c8y_Serial",
+        "externalidtypeType": "str",
+        "createdevice": false,
+        "params": "",
+        "paramsType": "json",
+        "x": 160,
+        "y": 420,
+        "wires": [
+            [
+                "65e5dcd7c230cda7"
+            ]
+        ]
+    },
+    {
+        "id": "cfcc9d25345cf61e",
+        "type": "call-endpoint",
+        "z": "63512b6c4d716a70",
+        "name": "",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "method": "DELETE",
+        "methodType": "Select",
+        "endpoint": "url",
+        "endpointType": "msg",
+        "body": "body",
+        "bodyType": "json",
+        "x": 490,
+        "y": 340,
+        "wires": [
+            [
+                "92bb10bdf2e2fb09"
+            ]
+        ]
+    },
+    {
+        "id": "65e5dcd7c230cda7",
+        "type": "function",
+        "z": "63512b6c4d716a70",
+        "name": "Create URL",
+        "func": "msg.url = \"/notification2/subscriptions?source=\" + msg.payload;\nmsg.method = \"DELETE\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 150,
+        "y": 500,
+        "wires": [
+            [
+                "4bbbfb1612e42ef0",
+                "cfcc9d25345cf61e"
+            ]
+        ]
+    },
+    {
+        "id": "92bb10bdf2e2fb09",
+        "type": "debug",
+        "z": "63512b6c4d716a70",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "status",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "4bbbfb1612e42ef0",
+        "type": "debug",
+        "z": "63512b6c4d716a70",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "url",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "044e82545ec89b0d",
+        "type": "inject",
+        "z": "63512b6c4d716a70",
+        "name": "Delete All Subscription Filters",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 640,
+        "wires": [
+            [
+                "fbe3fe3683813a7d"
+            ]
+        ]
+    },
+    {
+        "id": "fbe3fe3683813a7d",
+        "type": "call-endpoint",
+        "z": "63512b6c4d716a70",
+        "name": "",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "method": "GET",
+        "methodType": "Select",
+        "endpoint": "/notification2/subscriptions",
+        "endpointType": "str",
+        "body": "test",
+        "bodyType": "msg",
+        "x": 430,
+        "y": 640,
+        "wires": [
+            [
+                "4f56f1899018d4be"
+            ]
+        ]
+    },
+    {
+        "id": "a98443b485240921",
+        "type": "debug",
+        "z": "63512b6c4d716a70",
+        "name": "Status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "status",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "3d78d4932e4f68e0",
+        "type": "split",
+        "z": "63512b6c4d716a70",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 330,
+        "y": 740,
+        "wires": [
+            [
+                "97b6aebe29cd03a5"
+            ]
+        ]
+    },
+    {
+        "id": "4f56f1899018d4be",
+        "type": "change",
+        "z": "63512b6c4d716a70",
+        "name": "Extract Sub Array",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.subscriptions",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 150,
+        "y": 740,
+        "wires": [
+            [
+                "3d78d4932e4f68e0"
+            ]
+        ]
+    },
+    {
+        "id": "e1cc215e3d3138af",
+        "type": "call-endpoint",
+        "z": "63512b6c4d716a70",
+        "name": "Delete Subscription",
+        "c8yconfig": "e0c6628266ed80c4",
+        "useenv": false,
+        "method": "DELETE",
+        "methodType": "Select",
+        "endpoint": "endpoint",
+        "endpointType": "msg",
+        "body": "",
+        "bodyType": "json",
+        "x": 370,
+        "y": 820,
+        "wires": [
+            [
+                "a98443b485240921"
+            ]
+        ]
+    },
+    {
+        "id": "97b6aebe29cd03a5",
+        "type": "function",
+        "z": "63512b6c4d716a70",
+        "name": "Create Endpoint",
+        "func": "msg.endpoint = \"/notification2/subscriptions/\" + msg.payload.id;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 160,
+        "y": 820,
+        "wires": [
+            [
+                "e1cc215e3d3138af",
+                "cb56a143ddfe23f0"
+            ]
+        ]
+    },
+    {
+        "id": "cb56a143ddfe23f0",
+        "type": "debug",
+        "z": "63512b6c4d716a70",
+        "name": "Endpoint",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "endpoint",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "e0c6628266ed80c4",
+        "type": "c8yconfig",
+        "c8ytenant": "t15264971",
+        "c8yurl": "https://mstoffel.eu-latest.cumulocity.com"
+    }
+]

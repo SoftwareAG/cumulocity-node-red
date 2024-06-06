@@ -1,17 +1,110 @@
 <script type="text/javascript">
     RED.nodes.registerType('call-endpoint',{
         category: 'Cumulocity',
-        color: '#a6bbcf',
+        color: '#45c4ba',
         defaults: {
             name: {value:""},
-            method: {value:"GET"},
-            endpoint: {value: ''}
+            c8yconfig: {
+                value:"", 
+                type:"c8yconfig", 
+                validate: function(v){
+                    return (this.useenv || v) 
+                }
+            },
+            useenv: {value: false},
+            method: {
+                value:"GET",
+                required: true,
+                validate: RED.validators.typedInput('methodType')
+            },
+            methodType: {
+                value: "Select"
+            },
+            endpoint: {
+                value: '',
+                required: true,
+                validate: RED.validators.typedInput('endpointType')
+            },
+            endpointType: {
+                value: 'str',
+            },
+            body: {
+                value:"",
+                validate: function(v){
+                    const method = $('#node-input-method').val();
+                    const methodType = $('#node-input-methodType').val();
+                    const bodyType = $('#node-input-bodyType').val();
+                    if (
+                            (
+                                method == "GET" || 
+                                method == "DELETE" 
+                            )
+                            || 
+                            (
+                                methodType =="msg" && 
+                                bodyType =="msg"
+                            ) 
+                        ) {
+                        return true;
+                    }else{
+                        return RED.validators.typedInput('bodyType')(v);
+                    }
+                }
+            },
+            bodyType: {
+                value: "json"
+            }
         },
         inputs:1,
         outputs:1,
-        icon: "file.png",
+        icon: "bridge.svg",
         label: function() {
             return this.name||"call-endpoint";
+        },
+        oneditprepare: function() {
+ 
+            $('#node-input-method').typedInput({
+                default: 'Select',
+                typeField: $("#node-input-methodType"),
+                types: [
+                    'msg',
+                    {
+                        value: "Select",
+                        multiple: false,
+                        options: [
+                            "GET",
+                            "POST",
+                            "DELETE",
+                            "PUT"
+                        ]
+                    }
+                ]
+            });
+            $('#node-input-body').typedInput({
+                default: 'str',
+                typeField: $("#node-input-bodyType"),
+                types: ['msg','json']
+            });
+            $('#node-input-method').change(function() {
+                const method = $(this).val();
+                if ( method == "GET" || method == "DELETE") {
+                    $('#body').hide();
+                } else {
+                    $('#body').show();
+                }
+            });
+            $('#node-input-endpoint').typedInput({
+                default: 'str',
+                typeField: $("#node-input-endpointType"),
+                types: ['msg','str']
+            });
+            $('#node-input-useenv').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#c8yconfig-row').hide();
+                } else {
+                    $('#c8yconfig-row').show();
+                }
+            });
         }
     });
 </script>
@@ -21,16 +114,46 @@
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+     <div class="form-row">
+        <label for="node-input-useenv"><i class="fa fa-tag"></i> Use ENV</label>
+        <input type="checkbox" id="node-input-useenv"/>
+    </div>
+    <div class="form-row" id="c8yconfig-row">
+        <label for="node-input-c8yconfig"><i class="fa fa-tag"></i> C8y config</label>
+        <input type="text" id="node-input-c8yconfig" placeholder="c8yconfig">
+    </div>
     <div class="form-row">
         <label for="node-input-endpoint"><i class="fa fa-tag"></i> Endpoint</label>
         <input type="text" id="node-input-endpoint" placeholder="e.g. /service/where-am-i/findMe">
+        <input type="hidden" id="node-input-endpointType">
     </div>
     <div class="form-row">
         <label for="node-input-method"><i class="fa fa-tag"></i> Method</label>
-        <input type="text" id="node-input-method" placeholder="e.g. GET">
+        <input type="text" id="node-input-method" placeholder="GET">
+        <input type="hidden" id="node-input-methodType">
+	</div>
+    <div class="form-row" id="body">
+        <label for="node-input-body"><i class="fa fa-tag"></i> Body</label>
+        <input type="text" id="node-input-body" placeholder="">
+        <input type="hidden" id="node-input-bodyType">
     </div>
 </script>
 
-<script type="text/html" data-help-name="call-endpoint">
-    <p>A node that calls a specified Cumulocity endpoint.</p>
+<script type="text/markdown" data-help-name="call-endpoint">
+A node that calls a specified Cumulocity endpoint. For detailed information on the Cumulocity API please have a look at: [https://cumulocity.com/api/core/](https://cumulocity.com/api/core/)
+Also have a look at the example flows distributed with this package.
+
+The node needs Cumulocity conection details (Tenant/Base URL) 
+and credentials (Username and Password).
+Those can be obtained via a configuration (C8y Config Property) or through environment variables.
+Using evironment variables comes in handy if your running inside Cumulocity as a microservice. To use them check the Use ENV checkbox. 
+
+
+### Inputs
+: Endpoint (string | msg field) : API Endpoint to call (e.g. /measurement/measurements) can be build using a function bock beforhand.
+: Method (string dropdown | msg field ) : Http method. Use the dropdown to select or prepare as a message field 
+: Body (JSON string | msg field) : Http body for POST or PUT method. Can be hard coded as JSON string or prepared as message field
+
+### outputs
+: payload (JSON string) : The request response will be issued by the node as `msg.payload`
 </script>
