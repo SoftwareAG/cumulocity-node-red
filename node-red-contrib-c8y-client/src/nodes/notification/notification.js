@@ -22,10 +22,8 @@ module.exports = function (RED) {
     node.refreshTokenIntervalReference = undefined;
     node.reconnectCount = 0;
     node.expiresInMinutes = 10;
-    node.refreshTokenInterval = 600000;
 
     getCredentials(RED, node);
-    console.log();
     try {
       // Get properties
       node.deviceIds = RED.util.evaluateNodeProperty(
@@ -34,7 +32,7 @@ module.exports = function (RED) {
         node,
         undefined
       );
-      node.deviceIds = node.deviceIds.split(",").filter((s) => s.trim());
+      node.deviceIds = node.deviceIds.split(",").map((s) => s.trim());
       node.debug("DeviceIds:" + JSON.stringify(node.deviceIds));
 
       node.apis = RED.util.evaluateNodeProperty(
@@ -43,7 +41,7 @@ module.exports = function (RED) {
         node,
         undefined
       );
-      node.apis = node.apis.split(",").filter((s) => s.trim());
+      node.apis = node.apis.split(",").map((s) => s.trim());
       if (node.apis.includes("*")) {
         node.apis = ["*"];
       }
@@ -76,7 +74,7 @@ module.exports = function (RED) {
         if (node.fragmentsToCopy) {
           filter.fragmentsToCopy = node.fragmentsToCopy
             .split(",")
-            .filter((s) => s.trim());
+            .map((s) => s.trim());
         }
         if (node.context == "tenant") {
           // No device source allowed in tenant context
