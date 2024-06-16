@@ -94,10 +94,10 @@
           "builder": "@c8y/devkit:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cumulocity-node-red-ui:build:production"
+              "buildTarget": "cumulocity-node-red-ui:build:production"
             },
             "development": {
-              "browserTarget": "cumulocity-node-red-ui:build:development"
+              "buildTarget": "cumulocity-node-red-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -128,10 +128,10 @@
           "builder": "@c8y/devkit:deploy",
           "configurations": {
             "production": {
-              "browserTarget": "cumulocity-node-red-ui:build:production"
+              "buildTarget": "cumulocity-node-red-ui:build:production"
             },
             "development": {
-              "browserTarget": "cumulocity-node-red-ui:build:development"
+              "buildTarget": "cumulocity-node-red-ui:build:development"
             }
           },
           "defaultConfiguration": "production"
