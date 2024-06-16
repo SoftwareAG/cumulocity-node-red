@@ -1,3 +1,15 @@
+# [2.3.0](https://github.com/SoftwareAG/cumulocity-node-red/compare/v2.2.4...v2.3.0) (2024-06-16)
+
+
+### Bug Fixes
+
+* ng upgrade ([#205](https://github.com/SoftwareAG/cumulocity-node-red/issues/205)) ([9a9aa8c](https://github.com/SoftwareAG/cumulocity-node-red/commit/9a9aa8c497cf5bcd4f22dee6ebbb20ad691f670c))
+
+
+### Features
+
+* upgrade to angular 17 and websdk 1020 ([#203](https://github.com/SoftwareAG/cumulocity-node-red/issues/203)) ([0af7dd4](https://github.com/SoftwareAG/cumulocity-node-red/commit/0af7dd45a0ff6c7d78ced6cc1f33f982a4ef388f))
+
 ## [2.2.4](https://github.com/SoftwareAG/cumulocity-node-red/compare/v2.2.3...v2.2.4) (2024-05-24)
 
 
