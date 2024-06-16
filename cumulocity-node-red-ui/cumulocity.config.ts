@@ -1,4 +1,4 @@
-import { ConfigurationOptions } from '@c8y/devkit/dist/options';
+import { ConfigurationOptions } from '@c8y/devkit';
 import * as config from '../package.json';
 
 const { author, description, version, license } = config;
