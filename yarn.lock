@@ -210,10 +210,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/platform-browser-dynamic@^17.3.11":
-  version "17.3.11"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-17.3.11.tgz#d578cefbba24800e94756338a7789dbe8014b63b"
-  integrity sha512-JPA0enJyJQ5H340WQ2wfXbCCHzjBiAljEDMr/Siw/CzSe0XI8aQYDqKMLUMtRyCdYhNCEYjnBWgXBi9Za9blZg==
+"@angular/platform-browser-dynamic@^18.0.3":
+  version "18.0.3"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-18.0.3.tgz#5f5854a31691519a2e6bf032135ebe5c1f3f82a8"
+  integrity sha512-+kHMn7P552YKk1gkVQNO1QXzHVaIeFiVa1rV1MNvX4DvumKT3puknx1SzcmtxZTX+9ee22OuPuyLNSAKREDAQQ==
   dependencies:
     tslib "^2.3.0"
 
