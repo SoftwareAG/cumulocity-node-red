@@ -1676,20 +1676,6 @@
     chroma-js "2.4.2"
     lodash "4.17.21"
 
-"@c8y/client@1019.23.8":
-  version "1019.23.8"
-  resolved "https://registry.yarnpkg.com/@c8y/client/-/client-1019.23.8.tgz#24d4be409dbfab07ed6c11d08bdeaf305ea713d6"
-  integrity sha512-udDFhWQ/O0FpsT9VcgWU77UNr+QHKiClomRDyk9nTFx70fZAH898Q/j6TG0zsYKmUeP8Yd4XGeHw3MiSvOavzA==
-  dependencies:
-    "@types/cometd" "4.0.8"
-    "@types/node" "18"
-    b2a "1.1.2"
-    cometd "4.0.8"
-    cometd-nodejs-client "1.0.2"
-    cross-fetch "3.1.5"
-    form-data "4.0.0"
-    isomorphic-cometd "1.1.0"
-
 "@c8y/client@1020.0.15":
   version "1020.0.15"
   resolved "https://registry.yarnpkg.com/@c8y/client/-/client-1020.0.15.tgz#241f851deac19ef7ef88b8f59e7bd983604b66d1"
@@ -4170,13 +4156,6 @@ cronosjs@1.7.1:
   version "1.7.1"
   resolved "https://registry.npmjs.org/cronosjs/-/cronosjs-1.7.1.tgz"
   integrity sha512-d6S6+ep7dJxsAG8OQQCdKuByI/S/AV64d9OF5mtmcykOyPu92cAkAnF3Tbc9s5oOaLQBYYQmTNvjqYRkPJ/u5Q==
-
-cross-fetch@3.1.5:
-  version "3.1.5"
-  resolved "https://registry.npmjs.org/cross-fetch/-/cross-fetch-3.1.5.tgz"
-  integrity sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==
-  dependencies:
-    node-fetch "2.6.7"
 
 cross-fetch@4.0.0:
   version "4.0.0"
@@ -6947,13 +6926,6 @@ node-addon-api@^5.0.0:
   version "5.1.0"
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-5.1.0.tgz"
   integrity sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==
-
-node-fetch@2.6.7:
-  version "2.6.7"
-  resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz"
-  integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
-  dependencies:
-    whatwg-url "^5.0.0"
 
 node-fetch@^2.6.12, node-fetch@^2.6.7:
   version "2.7.0"
